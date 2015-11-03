@@ -1,0 +1,1594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dijsktrabfshadoop" default="all">
+  
+  
+  <property file="dijsktrabfshadoop.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.tox/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
+  <path id="jdk.classpath.1.6">
+    <fileset dir="${jdk.home.1.6}">
+      <include name="bundle/Home/lib/deploy.jar"/>
+      <include name="bundle/Home/lib/dt.jar"/>
+      <include name="bundle/Home/lib/javaws.jar"/>
+      <include name="bundle/Home/lib/jce.jar"/>
+      <include name="bundle/Home/lib/jconsole.jar"/>
+      <include name="bundle/Home/lib/management-agent.jar"/>
+      <include name="bundle/Home/lib/plugin.jar"/>
+      <include name="bundle/Home/lib/sa-jdi.jar"/>
+      <include name="bundle/Classes/charsets.jar"/>
+      <include name="bundle/Classes/classes.jar"/>
+      <include name="bundle/Classes/jsse.jar"/>
+      <include name="bundle/Classes/ui.jar"/>
+      <include name="bundle/Home/lib/ext/apple_provider.jar"/>
+      <include name="bundle/Home/lib/ext/dnsns.jar"/>
+      <include name="bundle/Home/lib/ext/localedata.jar"/>
+      <include name="bundle/Home/lib/ext/sunjce_provider.jar"/>
+      <include name="bundle/Home/lib/ext/sunpkcs11.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.6}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
+  
+  
+  <!-- Global Libraries -->
+  
+  <path id="library.grails-2.5.0.classpath">
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-aether-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-async-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-bootstrap-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-core-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-databinding-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-docs-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-encoder-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-logging-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-async-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-codecs-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-controllers-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-converters-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-databinding-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-datasource-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-domain-class-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-filters-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-gsp-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-i18n-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-log4j-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-mimetypes-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-rest-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-services-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-servlets-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-testing-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-url-mappings-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-plugin-validation-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-project-api-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-resources-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-scripts-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-spring-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-test-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-validation-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-common-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-databinding-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-databinding-spring-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-fileupload-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-gsp-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-gsp-taglib-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-jsp-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-mvc-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-sitemesh-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-web-url-mappings-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-wrapper-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/dist/grails-wrapper-support-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/aopalliance/aopalliance/jars/aopalliance-1.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/asm/asm/jars/asm-3.3.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/bouncycastle/bcmail-jdk14/jars/bcmail-jdk14-138.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/bouncycastle/bcprov-jdk14/jars/bcprov-jdk14-138.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/cglib/cglib/jars/cglib-2.2.2.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/com.google.code.findbugs/jsr305/jars/jsr305-1.3.9.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/com.google.code.gson/gson/jars/gson-2.2.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/com.google.guava/guava/jars/guava-10.0.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/com.google.protobuf/protobuf-java/jars/protobuf-java-2.5.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru/jars/concurrentlinkedhashmap-lru-1.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/com.googlecode.json-simple/json-simple/jars/json-simple-1.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/com.h2database/h2/jars/h2-1.3.176.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/com.lowagie/itext/jars/itext-2.0.8.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/commons-cli/commons-cli/jars/commons-cli-1.2.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/commons-codec/commons-codec/jars/commons-codec-1.6.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/commons-collections/commons-collections/jars/commons-collections-3.2.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/commons-fileupload/commons-fileupload/jars/commons-fileupload-1.3.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/commons-io/commons-io/jars/commons-io-2.2.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/commons-lang/commons-lang/jars/commons-lang-2.6.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/commons-validator/commons-validator/jars/commons-validator-1.4.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/hsqldb/hsqldb/jars/hsqldb-1.8.0.10.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/javax.annotation/jsr250-api/jars/jsr250-api-1.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/javax.enterprise/cdi-api/jars/cdi-api-1.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/javax.inject/javax.inject/jars/javax.inject-1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/javax.servlet.jsp/jsp-api/jars/jsp-api-2.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/javax.servlet/javax.servlet-api/jars/javax.servlet-api-3.0.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/javax.servlet/jsp-api/jars/jsp-api-2.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/javax.transaction/jta/jars/jta-1.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/jline/jline/jars/jline-2.12.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/junit/junit/jars/junit-4.12.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/log4j/log4j/jars/log4j-1.2.17.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/net.java.dev.jna/jna/jars/jna-4.0.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/opensymphony/sitemesh/jars/sitemesh-2.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.ant/ant-junit/jars/ant-junit-1.8.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.ant/ant-launcher/jars/ant-launcher-1.8.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.ant/ant-trax/jars/ant-trax-1.7.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.ant/ant/jars/ant-1.8.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.httpcomponents/httpclient/jars/httpclient-4.2.6.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.httpcomponents/httpcore/jars/httpcore-4.2.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.ivy/ivy/jars/ivy-2.3.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.maven/maven-aether-provider/jars/maven-aether-provider-3.2.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.maven/maven-model-builder/jars/maven-model-builder-3.2.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.maven/maven-model/jars/maven-model-3.2.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.maven/maven-repository-metadata/jars/maven-repository-metadata-3.2.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.maven/maven-settings-builder/jars/maven-settings-builder-3.2.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.maven/maven-settings/jars/maven-settings-3.2.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.tomcat.embed/tomcat-embed-logging-log4j/jars/tomcat-embed-logging-log4j-7.0.50.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.tomcat/tomcat-jdbc/jars/tomcat-jdbc-7.0.50.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.apache.tomcat/tomcat-juli/jars/tomcat-juli-7.0.50.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.aspectj/aspectjrt/jars/aspectjrt-1.8.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.aspectj/aspectjweaver/jars/aspectjweaver-1.8.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.bouncycastle/bcpg-jdk15/jars/bcpg-jdk15-1.45.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.bouncycastle/bcprov-jdk15/jars/bcprov-jdk15-1.45.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.codehaus.gant/gant_groovy1.8/jars/gant_groovy1.8-1.9.6.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.codehaus.gpars/gpars/jars/gpars-1.2.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.codehaus.groovy/groovy-all/jars/groovy-all-2.4.3.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.codehaus.jsr166-mirror/jsr166y/jars/jsr166y-1.7.0.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.codehaus.plexus/plexus-classworlds/jars/plexus-classworlds-2.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.codehaus.plexus/plexus-component-annotations/jars/plexus-component-annotations-1.5.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.codehaus.plexus/plexus-interpolation/jars/plexus-interpolation-1.21.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.codehaus.plexus/plexus-utils/jars/plexus-utils-3.0.20.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-api/jars/aether-api-1.0.2.v20150114.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-connector-basic/jars/aether-connector-basic-1.0.2.v20150114.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-impl/jars/aether-impl-1.0.2.v20150114.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-spi/jars/aether-spi-1.0.2.v20150114.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-transport-file/jars/aether-transport-file-1.0.2.v20150114.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-transport-http/jars/aether-transport-http-1.0.2.v20150114.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-util/jars/aether-util-1.0.2.v20150114.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.sisu/org.eclipse.sisu.inject/jars/org.eclipse.sisu.inject-0.0.0.M5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.eclipse.sisu/org.eclipse.sisu.plexus/jars/org.eclipse.sisu.plexus-0.0.0.M5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.fusesource.jansi/jansi/jars/jansi-1.11.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.grails/grails-datastore-core/jars/grails-datastore-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.grails/grails-datastore-gorm/jars/grails-datastore-gorm-3.1.4.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.grails/grails-datastore-simple/jars/grails-datastore-simple-3.1.4.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.grails/grails-gdoc-engine/jars/grails-gdoc-engine-1.0.1.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/jars/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.jsoup/jsoup/jars/jsoup-1.7.3.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.objenesis/objenesis/jars/objenesis-1.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.slf4j/jcl-over-slf4j/jars/jcl-over-slf4j-1.7.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.slf4j/jul-to-slf4j/jars/jul-to-slf4j-1.7.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.slf4j/slf4j-api/jars/slf4j-api-1.7.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.slf4j/slf4j-simple/jars/slf4j-simple-1.7.5.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.sonatype.plexus/plexus-cipher/jars/plexus-cipher-1.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.sonatype.plexus/plexus-sec-dispatcher/jars/plexus-sec-dispatcher-1.3.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.sonatype.sisu/sisu-guice/jars/sisu-guice-3.1.0-no_aop.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.spockframework/spock-core/jars/spock-core-1.0-groovy-2.4.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework.uaa/org.springframework.uaa.client/jars/org.springframework.uaa.client-1.0.1.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-aop/jars/spring-aop-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-aspects/jars/spring-aspects-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-beans/jars/spring-beans-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-context-support/jars/spring-context-support-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-context/jars/spring-context-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-core/jars/spring-core-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-expression/jars/spring-expression-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-jdbc/jars/spring-jdbc-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-test/jars/spring-test-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-tx/jars/spring-tx-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-web/jars/spring-web-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/spring-webmvc/jars/spring-webmvc-4.1.5.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.springframework/springloaded/jars/springloaded-1.2.3.RELEASE.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.xhtmlrenderer/core-renderer/jars/core-renderer-R8.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/org.yaml/snakeyaml/jars/snakeyaml-1.8.jar"/>
+    <pathelement location="/Users/gestol/.gvm/grails/2.5.0/lib/xalan/serializer/jars/serializer-2.7.2.jar"/>
+  </path>
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+    <property name="grooovyc.task.sdk" value="library.grails-2.5.0.classpath"/>
+    <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc" classpathref="${grooovyc.task.sdk}"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module dijsktraBFShadoop-grailsPlugins -->
+  
+  <dirname property="module.dijsktrabfshadoop-grailsplugins.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.dijsktrabfshadoop-grailsplugins" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.dijsktrabfshadoop-grailsplugins" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.dijsktrabfshadoop-grailsplugins" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.dijsktrabfshadoop-grailsplugins" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="dijsktrabfshadoop-grailsplugins.output.dir" value="${module.dijsktrabfshadoop-grailsplugins.basedir}/out/production/dijsktraBFShadoop-grailsPlugins"/>
+  <property name="dijsktrabfshadoop-grailsplugins.testoutput.dir" value="${module.dijsktrabfshadoop-grailsplugins.basedir}/out/test/dijsktraBFShadoop-grailsPlugins"/>
+  
+  <path id="dijsktrabfshadoop-grailsplugins.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="dijsktrabfshadoop-grailsplugins.module.production.classpath">
+    <path refid="${module.jdk.classpath.dijsktrabfshadoop-grailsplugins}"/>
+    <path refid="library.grails-2.5.0.classpath"/>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/11.0.2/guava-11.0.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/extensions/guice-servlet/3.0/guice-servlet-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/guice/3.0/guice-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jamesmurty/utils/java-xmlbuilder/0.4/java-xmlbuilder-0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jcraft/jsch/0.1.42/jsch-0.1.42.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-client/1.9/jersey-client-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-json/1.9/jersey-json-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-digester/commons-digester/1.8/commons-digester-1.8.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-el/commons-el/1.0/commons-el-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-net/commons-net/3.1/commons-net-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/io/netty/netty/3.6.2.Final/netty-3.6.2.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/jets3t/jets3t/0.9.0/jets3t-0.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/avro/avro/1.7.4/avro-1.7.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-client/2.6.0/curator-client-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-recipes/2.6.0/curator-recipes-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-asn1-api/1.0.0-M20/api-asn1-api-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-util/1.0.0-M20/api-util-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-i18n/2.0.0-M15/apacheds-i18n-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-kerberos-codec/2.0.0-M15/apacheds-kerberos-codec-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-annotations/2.6.0/hadoop-annotations-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-auth/2.6.0/hadoop-auth-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-common/2.6.0/hadoop-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-mapreduce-client-core/2.6.0/hadoop-mapreduce-client-core-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-api/2.6.0/hadoop-yarn-api-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-common/2.6.0/hadoop-yarn-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/zookeeper/zookeeper/3.4.6/zookeeper-3.4.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/htrace/htrace-core/3.0.4/htrace-core-3.0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/tukaani/xz/1.0/xz-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/xerial/snappy/snappy-java/1.0.4.1/snappy-java-1.0.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-compiler/5.5.23/jasper-compiler-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/xmlenc/xmlenc/0.52/xmlenc-0.52.jar"/>
+  </path>
+  
+  <path id="dijsktrabfshadoop-grailsplugins.runtime.production.module.classpath">
+    <pathelement location="${dijsktrabfshadoop-grailsplugins.output.dir}"/>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/11.0.2/guava-11.0.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/extensions/guice-servlet/3.0/guice-servlet-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/guice/3.0/guice-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jamesmurty/utils/java-xmlbuilder/0.4/java-xmlbuilder-0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jcraft/jsch/0.1.42/jsch-0.1.42.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-client/1.9/jersey-client-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-json/1.9/jersey-json-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-digester/commons-digester/1.8/commons-digester-1.8.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-el/commons-el/1.0/commons-el-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-net/commons-net/3.1/commons-net-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/io/netty/netty/3.6.2.Final/netty-3.6.2.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/jets3t/jets3t/0.9.0/jets3t-0.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/avro/avro/1.7.4/avro-1.7.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-client/2.6.0/curator-client-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-recipes/2.6.0/curator-recipes-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-asn1-api/1.0.0-M20/api-asn1-api-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-util/1.0.0-M20/api-util-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-i18n/2.0.0-M15/apacheds-i18n-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-kerberos-codec/2.0.0-M15/apacheds-kerberos-codec-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-annotations/2.6.0/hadoop-annotations-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-auth/2.6.0/hadoop-auth-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-common/2.6.0/hadoop-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-mapreduce-client-core/2.6.0/hadoop-mapreduce-client-core-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-api/2.6.0/hadoop-yarn-api-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-common/2.6.0/hadoop-yarn-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/zookeeper/zookeeper/3.4.6/zookeeper-3.4.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/htrace/htrace-core/3.0.4/htrace-core-3.0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/tukaani/xz/1.0/xz-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/xerial/snappy/snappy-java/1.0.4.1/snappy-java-1.0.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-compiler/5.5.23/jasper-compiler-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/xmlenc/xmlenc/0.52/xmlenc-0.52.jar"/>
+  </path>
+  
+  <path id="dijsktrabfshadoop-grailsplugins.module.classpath">
+    <path refid="${module.jdk.classpath.dijsktrabfshadoop-grailsplugins}"/>
+    <pathelement location="${dijsktrabfshadoop-grailsplugins.output.dir}"/>
+    <path refid="library.grails-2.5.0.classpath"/>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/11.0.2/guava-11.0.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/extensions/guice-servlet/3.0/guice-servlet-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/guice/3.0/guice-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jamesmurty/utils/java-xmlbuilder/0.4/java-xmlbuilder-0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jcraft/jsch/0.1.42/jsch-0.1.42.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-client/1.9/jersey-client-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-json/1.9/jersey-json-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-digester/commons-digester/1.8/commons-digester-1.8.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-el/commons-el/1.0/commons-el-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-net/commons-net/3.1/commons-net-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/io/netty/netty/3.6.2.Final/netty-3.6.2.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/jets3t/jets3t/0.9.0/jets3t-0.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/avro/avro/1.7.4/avro-1.7.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-client/2.6.0/curator-client-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-recipes/2.6.0/curator-recipes-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-asn1-api/1.0.0-M20/api-asn1-api-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-util/1.0.0-M20/api-util-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-i18n/2.0.0-M15/apacheds-i18n-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-kerberos-codec/2.0.0-M15/apacheds-kerberos-codec-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-annotations/2.6.0/hadoop-annotations-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-auth/2.6.0/hadoop-auth-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-common/2.6.0/hadoop-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-mapreduce-client-core/2.6.0/hadoop-mapreduce-client-core-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-api/2.6.0/hadoop-yarn-api-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-common/2.6.0/hadoop-yarn-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/zookeeper/zookeeper/3.4.6/zookeeper-3.4.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/htrace/htrace-core/3.0.4/htrace-core-3.0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/tukaani/xz/1.0/xz-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/xerial/snappy/snappy-java/1.0.4.1/snappy-java-1.0.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-compiler/5.5.23/jasper-compiler-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/xmlenc/xmlenc/0.52/xmlenc-0.52.jar"/>
+  </path>
+  
+  <path id="dijsktrabfshadoop-grailsplugins.runtime.module.classpath">
+    <pathelement location="${dijsktrabfshadoop-grailsplugins.testoutput.dir}"/>
+    <pathelement location="${dijsktrabfshadoop-grailsplugins.output.dir}"/>
+    <path refid="library.grails-2.5.0.classpath"/>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/11.0.2/guava-11.0.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/extensions/guice-servlet/3.0/guice-servlet-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/guice/3.0/guice-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jamesmurty/utils/java-xmlbuilder/0.4/java-xmlbuilder-0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jcraft/jsch/0.1.42/jsch-0.1.42.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-client/1.9/jersey-client-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-json/1.9/jersey-json-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-digester/commons-digester/1.8/commons-digester-1.8.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-el/commons-el/1.0/commons-el-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-net/commons-net/3.1/commons-net-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/io/netty/netty/3.6.2.Final/netty-3.6.2.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/jets3t/jets3t/0.9.0/jets3t-0.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/avro/avro/1.7.4/avro-1.7.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-client/2.6.0/curator-client-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-recipes/2.6.0/curator-recipes-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-asn1-api/1.0.0-M20/api-asn1-api-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-util/1.0.0-M20/api-util-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-i18n/2.0.0-M15/apacheds-i18n-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-kerberos-codec/2.0.0-M15/apacheds-kerberos-codec-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-annotations/2.6.0/hadoop-annotations-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-auth/2.6.0/hadoop-auth-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-common/2.6.0/hadoop-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-mapreduce-client-core/2.6.0/hadoop-mapreduce-client-core-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-api/2.6.0/hadoop-yarn-api-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-common/2.6.0/hadoop-yarn-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/zookeeper/zookeeper/3.4.6/zookeeper-3.4.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/htrace/htrace-core/3.0.4/htrace-core-3.0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/tukaani/xz/1.0/xz-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/xerial/snappy/snappy-java/1.0.4.1/snappy-java-1.0.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-compiler/5.5.23/jasper-compiler-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/xmlenc/xmlenc/0.52/xmlenc-0.52.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.dijsktrabfshadoop-grailsplugins">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.dijsktrabfshadoop-grailsplugins">
+    <patternset refid="excluded.from.module.dijsktrabfshadoop-grailsplugins"/>
+  </patternset>
+  
+  <path id="dijsktrabfshadoop-grailsplugins.module.sourcepath">
+    <dirset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/asset-pipeline-2.1.5">
+      <include name="src/groovy"/>
+      <include name="grails-app/services"/>
+      <include name="grails-app/taglib"/>
+    </dirset>
+    <dirset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/cache-1.1.8">
+      <include name="src/java"/>
+      <include name="src/groovy"/>
+      <include name="grails-app/services"/>
+      <include name="grails-app/taglib"/>
+    </dirset>
+    <dirset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/database-migration-1.4.0">
+      <include name="src/groovy"/>
+      <include name="grails-app/controllers"/>
+    </dirset>
+    <dirset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/hibernate4-4.3.8.1">
+      <include name="src/java"/>
+    </dirset>
+    <dirset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/jquery-1.11.1">
+      <include name="src/groovy"/>
+      <include name="grails-app/services"/>
+      <include name="grails-app/taglib"/>
+    </dirset>
+    <dirset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/scaffolding-2.1.2">
+      <include name="src/java"/>
+      <include name="src/groovy"/>
+    </dirset>
+    <dirset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/tomcat-7.0.55.2">
+      <include name="src/java"/>
+      <include name="src/groovy"/>
+    </dirset>
+    <dirset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/webxml-1.4.1">
+      <include name="src/groovy"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.dijsktrabfshadoop-grailsplugins" depends="compile.module.dijsktrabfshadoop-grailsplugins.production,compile.module.dijsktrabfshadoop-grailsplugins.tests" description="Compile module dijsktraBFShadoop-grailsPlugins"/>
+  
+  <target name="compile.module.dijsktrabfshadoop-grailsplugins.production" depends="register.custom.compilers" description="Compile module dijsktraBFShadoop-grailsPlugins; production classes">
+    <mkdir dir="${dijsktrabfshadoop-grailsplugins.output.dir}"/>
+    <groovyc destdir="${dijsktrabfshadoop-grailsplugins.output.dir}" fork="yes">
+      <src refid="dijsktrabfshadoop-grailsplugins.module.sourcepath"/>
+      <classpath refid="dijsktrabfshadoop-grailsplugins.module.production.classpath"/>
+      <patternset refid="excluded.from.compilation.dijsktrabfshadoop-grailsplugins"/>
+      <javac debug="${compiler.debug}">
+        <compilerarg line="${compiler.args.dijsktrabfshadoop-grailsplugins}"/>
+      </javac>
+    </groovyc>
+    <instrumentIdeaExtensions destdir="${dijsktrabfshadoop-grailsplugins.output.dir}">
+      <compilerarg line="${compiler.args.dijsktrabfshadoop-grailsplugins}"/>
+      <bootclasspath refid="dijsktrabfshadoop-grailsplugins.module.bootclasspath"/>
+      <classpath refid="dijsktrabfshadoop-grailsplugins.module.production.classpath"/>
+      <src refid="dijsktrabfshadoop-grailsplugins.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.dijsktrabfshadoop-grailsplugins"/>
+    </instrumentIdeaExtensions>
+    
+    <copy todir="${dijsktrabfshadoop-grailsplugins.output.dir}">
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/asset-pipeline-2.1.5/src/groovy">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/asset-pipeline-2.1.5/grails-app/services">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/asset-pipeline-2.1.5/grails-app/taglib">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/cache-1.1.8/src/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/cache-1.1.8/src/groovy">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/cache-1.1.8/grails-app/services">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/cache-1.1.8/grails-app/taglib">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/database-migration-1.4.0/src/groovy">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/database-migration-1.4.0/grails-app/controllers">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/hibernate4-4.3.8.1/src/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/jquery-1.11.1/src/groovy">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/jquery-1.11.1/grails-app/services">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/jquery-1.11.1/grails-app/taglib">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/scaffolding-2.1.2/src/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/scaffolding-2.1.2/src/groovy">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/tomcat-7.0.55.2/src/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/tomcat-7.0.55.2/src/groovy">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop-grailsplugins.basedir}/target/work/plugins/webxml-1.4.1/src/groovy">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.dijsktrabfshadoop-grailsplugins.tests" depends="register.custom.compilers,compile.module.dijsktrabfshadoop-grailsplugins.production" description="compile module dijsktraBFShadoop-grailsPlugins; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.dijsktrabfshadoop-grailsplugins" description="cleanup module">
+    <delete dir="${dijsktrabfshadoop-grailsplugins.output.dir}"/>
+    <delete dir="${dijsktrabfshadoop-grailsplugins.testoutput.dir}"/>
+  </target>
+  
+  
+  <!-- Module dijsktraBFShadoop -->
+  
+  <dirname property="module.dijsktrabfshadoop.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.dijsktrabfshadoop" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.dijsktrabfshadoop" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.dijsktrabfshadoop" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.dijsktrabfshadoop" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="dijsktrabfshadoop.output.dir" value="${module.dijsktrabfshadoop.basedir}/out/production/dijsktraBFShadoop"/>
+  <property name="dijsktrabfshadoop.testoutput.dir" value="${module.dijsktrabfshadoop.basedir}/out/test/dijsktraBFShadoop"/>
+  
+  <path id="dijsktrabfshadoop.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="dijsktrabfshadoop.module.production.classpath">
+    <path refid="${module.jdk.classpath.dijsktrabfshadoop}"/>
+    <path refid="library.grails-2.5.0.classpath"/>
+    <fileset dir="${basedir}/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <pathelement location="${dijsktrabfshadoop-grailsplugins.output.dir}"/>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/11.0.2/guava-11.0.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/extensions/guice-servlet/3.0/guice-servlet-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/guice/3.0/guice-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jamesmurty/utils/java-xmlbuilder/0.4/java-xmlbuilder-0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jcraft/jsch/0.1.42/jsch-0.1.42.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-client/1.9/jersey-client-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-json/1.9/jersey-json-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-digester/commons-digester/1.8/commons-digester-1.8.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-el/commons-el/1.0/commons-el-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-net/commons-net/3.1/commons-net-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/io/netty/netty/3.6.2.Final/netty-3.6.2.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/jets3t/jets3t/0.9.0/jets3t-0.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/avro/avro/1.7.4/avro-1.7.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-client/2.6.0/curator-client-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-recipes/2.6.0/curator-recipes-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-asn1-api/1.0.0-M20/api-asn1-api-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-util/1.0.0-M20/api-util-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-i18n/2.0.0-M15/apacheds-i18n-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-kerberos-codec/2.0.0-M15/apacheds-kerberos-codec-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-annotations/2.6.0/hadoop-annotations-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-auth/2.6.0/hadoop-auth-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-common/2.6.0/hadoop-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-mapreduce-client-core/2.6.0/hadoop-mapreduce-client-core-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-api/2.6.0/hadoop-yarn-api-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-common/2.6.0/hadoop-yarn-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/zookeeper/zookeeper/3.4.6/zookeeper-3.4.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/htrace/htrace-core/3.0.4/htrace-core-3.0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/tukaani/xz/1.0/xz-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/xerial/snappy/snappy-java/1.0.4.1/snappy-java-1.0.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-compiler/5.5.23/jasper-compiler-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/xmlenc/xmlenc/0.52/xmlenc-0.52.jar"/>
+  </path>
+  
+  <path id="dijsktrabfshadoop.runtime.production.module.classpath">
+    <pathelement location="${dijsktrabfshadoop.output.dir}"/>
+    <path refid="library.grails-2.5.0.classpath"/>
+    <fileset dir="${basedir}/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <path refid="dijsktrabfshadoop-grailsplugins.runtime.production.module.classpath"/>
+  </path>
+  
+  <path id="dijsktrabfshadoop.module.classpath">
+    <path refid="${module.jdk.classpath.dijsktrabfshadoop}"/>
+    <pathelement location="${dijsktrabfshadoop.output.dir}"/>
+    <path refid="library.grails-2.5.0.classpath"/>
+    <fileset dir="${basedir}/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <pathelement location="${dijsktrabfshadoop-grailsplugins.testoutput.dir}"/>
+    <pathelement location="${dijsktrabfshadoop-grailsplugins.output.dir}"/>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/guava/guava/11.0.2/guava-11.0.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/extensions/guice-servlet/3.0/guice-servlet-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/inject/guice/3.0/guice-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jamesmurty/utils/java-xmlbuilder/0.4/java-xmlbuilder-0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jcraft/jsch/0.1.42/jsch-0.1.42.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-client/1.9/jersey-client-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-json/1.9/jersey-json-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-digester/commons-digester/1.8/commons-digester-1.8.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-el/commons-el/1.0/commons-el-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-net/commons-net/3.1/commons-net-3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/io/netty/netty/3.6.2.Final/netty-3.6.2.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/java/dev/jets3t/jets3t/0.9.0/jets3t-0.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/avro/avro/1.7.4/avro-1.7.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-client/2.6.0/curator-client-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/curator/curator-recipes/2.6.0/curator-recipes-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-asn1-api/1.0.0-M20/api-asn1-api-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/api/api-util/1.0.0-M20/api-util-1.0.0-M20.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-i18n/2.0.0-M15/apacheds-i18n-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/directory/server/apacheds-kerberos-codec/2.0.0-M15/apacheds-kerberos-codec-2.0.0-M15.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-annotations/2.6.0/hadoop-annotations-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-auth/2.6.0/hadoop-auth-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-common/2.6.0/hadoop-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-mapreduce-client-core/2.6.0/hadoop-mapreduce-client-core-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-api/2.6.0/hadoop-yarn-api-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-common/2.6.0/hadoop-yarn-common-2.6.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/zookeeper/zookeeper/3.4.6/zookeeper-3.4.6.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/htrace/htrace-core/3.0.4/htrace-core-3.0.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/tukaani/xz/1.0/xz-1.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/xerial/snappy/snappy-java/1.0.4.1/snappy-java-1.0.4.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-compiler/5.5.23/jasper-compiler-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar"/>
+    <pathelement location="${path.variable.maven_repository}/xmlenc/xmlenc/0.52/xmlenc-0.52.jar"/>
+  </path>
+  
+  <path id="dijsktrabfshadoop.runtime.module.classpath">
+    <pathelement location="${dijsktrabfshadoop.testoutput.dir}"/>
+    <pathelement location="${dijsktrabfshadoop.output.dir}"/>
+    <path refid="library.grails-2.5.0.classpath"/>
+    <fileset dir="${basedir}/lib">
+      <patternset refid="library.patterns"/>
+    </fileset>
+    <pathelement location="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+    <pathelement location="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+    <pathelement location="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+    <pathelement location="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+    <path refid="dijsktrabfshadoop-grailsplugins.runtime.module.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.dijsktrabfshadoop">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.dijsktrabfshadoop">
+    <patternset refid="excluded.from.module.dijsktrabfshadoop"/>
+  </patternset>
+  
+  <path id="dijsktrabfshadoop.module.sourcepath">
+    <dirset dir="${module.dijsktrabfshadoop.basedir}">
+      <include name="src/java"/>
+      <include name="grails-app/utils"/>
+      <include name="src/groovy"/>
+      <include name="grails-app/i18n"/>
+      <include name="grails-app/controllers"/>
+      <include name="grails-app/domain"/>
+      <include name="grails-app/services"/>
+      <include name="grails-app/taglib"/>
+    </dirset>
+  </path>
+  
+  <path id="dijsktrabfshadoop.module.test.sourcepath">
+    <dirset dir="${module.dijsktrabfshadoop.basedir}">
+      <include name="test/unit"/>
+      <include name="test/integration"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.dijsktrabfshadoop" depends="compile.module.dijsktrabfshadoop.production,compile.module.dijsktrabfshadoop.tests" description="Compile module dijsktraBFShadoop"/>
+  
+  <target name="compile.module.dijsktrabfshadoop.production" depends="register.custom.compilers,compile.module.dijsktrabfshadoop-grailsplugins" description="Compile module dijsktraBFShadoop; production classes">
+    <mkdir dir="${dijsktrabfshadoop.output.dir}"/>
+    <javac2 destdir="${dijsktrabfshadoop.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.dijsktrabfshadoop}/javac">
+      <compilerarg line="${compiler.args.dijsktrabfshadoop}"/>
+      <bootclasspath refid="dijsktrabfshadoop.module.bootclasspath"/>
+      <classpath refid="dijsktrabfshadoop.module.production.classpath"/>
+      <src refid="dijsktrabfshadoop.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.dijsktrabfshadoop"/>
+    </javac2>
+    
+    <copy todir="${dijsktrabfshadoop.output.dir}">
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/src/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/grails-app/utils">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/src/groovy">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/grails-app/i18n">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/grails-app/controllers">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/grails-app/domain">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/grails-app/services">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/grails-app/taglib">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.dijsktrabfshadoop.tests" depends="register.custom.compilers,compile.module.dijsktrabfshadoop.production" description="compile module dijsktraBFShadoop; test classes" unless="skip.tests">
+    <mkdir dir="${dijsktrabfshadoop.testoutput.dir}"/>
+    <javac2 destdir="${dijsktrabfshadoop.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.dijsktrabfshadoop}/javac">
+      <compilerarg line="${compiler.args.dijsktrabfshadoop}"/>
+      <bootclasspath refid="dijsktrabfshadoop.module.bootclasspath"/>
+      <classpath refid="dijsktrabfshadoop.module.classpath"/>
+      <src refid="dijsktrabfshadoop.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.dijsktrabfshadoop"/>
+    </javac2>
+    
+    <copy todir="${dijsktrabfshadoop.testoutput.dir}">
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/test/unit">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dijsktrabfshadoop.basedir}/test/integration">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.dijsktrabfshadoop" description="cleanup module">
+    <delete dir="${dijsktrabfshadoop.output.dir}"/>
+    <delete dir="${dijsktrabfshadoop.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.dijsktrabfshadoop-grailsplugins, clean.module.dijsktrabfshadoop" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.dijsktrabfshadoop-grailsplugins, compile.module.dijsktrabfshadoop" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.dijsktrabfshadoop:jar" value="${basedir}/out/artifacts/dijsktraBFShadoop_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.dijsktraBFShadoop.jar" value="${artifacts.temp.dir}/dijsktraBFShadoop.jar"/>
+  </target>
+  
+  <target name="artifact.dijsktrabfshadoop:jar" depends="init.artifacts, compile.module.dijsktrabfshadoop, compile.module.dijsktrabfshadoop-grailsplugins" description="Build &#39;dijsktraBFShadoop:jar&#39; artifact">
+    <property name="artifact.temp.output.dijsktrabfshadoop:jar" value="${artifacts.temp.dir}/dijsktraBFShadoop_jar"/>
+    <mkdir dir="${artifact.temp.output.dijsktrabfshadoop:jar}"/>
+    <ant antfile="" target="null" dir="">
+      <property name="artifact.output.path" value="${artifact.temp.output.dijsktrabfshadoop:jar}"/>
+    </ant>
+    <jar destfile="${temp.jar.path.dijsktraBFShadoop.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset dir="${dijsktrabfshadoop.output.dir}"/>
+      <zipfileset dir="${dijsktrabfshadoop-grailsplugins.output.dir}"/>
+      <zipfileset src="${path.variable.maven_repository}/com/bertramlabs/plugins/asset-pipeline-core/2.1.1/asset-pipeline-core-2.1.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/javassist/javassist/3.17.1-GA/javassist-3.17.1-GA.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-plugin-support/3.1.4.RELEASE/grails-datastore-gorm-plugin-support-3.1.4.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/springframework/spring-orm/4.1.5.RELEASE/spring-orm-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate-core/3.1.4.RELEASE/grails-datastore-gorm-hibernate-core-3.1.4.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/hibernate/common/hibernate-commons-annotations/4.0.4.Final/hibernate-commons-annotations-4.0.4.Final.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/grails/grails-datastore-gorm-hibernate4/3.1.4.RELEASE/grails-datastore-gorm-hibernate4-3.1.4.RELEASE.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/jboss/logging/jboss-logging/3.1.0.GA/jboss-logging-3.1.0.GA.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/net/sf/ehcache/ehcache/2.9.0/ehcache-2.9.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/antlr/antlr/2.7.7/antlr-2.7.7.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/hibernate/hibernate-core/4.3.8.Final/hibernate-core-4.3.8.Final.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/hibernate/hibernate-ehcache/4.3.8.Final/hibernate-ehcache-4.3.8.Final.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/fasterxml/classmate/1.0.0/classmate-1.0.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/hibernate/hibernate-validator/5.1.3.Final/hibernate-validator-5.1.3.Final.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/args4j/args4j/2.0.26/args4j-2.0.26.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/google/javascript/closure-compiler-externs/v20141023/closure-compiler-externs-v20141023.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/google/javascript/closure-compiler/v20141023/closure-compiler-v20141023.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/mozilla/rhino/1.7R4/rhino-1.7R4.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/grails/grails-datastore-test-support/1.0.2-grails-2.4/grails-datastore-test-support-1.0.2-grails-2.4.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/cglib/cglib-nodep/2.2.2/cglib-nodep-2.2.2.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-core/7.0.55/tomcat-embed-core-7.0.55.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/eclipse/jdt/core/compiler/ecj/3.7.2/ecj-3.7.2.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-websocket/7.0.55/tomcat-embed-websocket-7.0.55.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-logging-log4j/7.0.55/tomcat-embed-logging-log4j-7.0.55.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-aether-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-async-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-bootstrap-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-core-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-databinding-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-docs-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-encoder-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-logging-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-async-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-codecs-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-controllers-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-converters-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-databinding-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-datasource-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-domain-class-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-filters-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-gsp-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-i18n-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-log4j-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-mimetypes-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-rest-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-services-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-servlets-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-testing-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-url-mappings-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-plugin-validation-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-project-api-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-resources-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-scripts-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-spring-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-test-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-validation-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-common-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-databinding-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-databinding-spring-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-fileupload-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-gsp-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-gsp-taglib-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-jsp-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-mvc-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-sitemesh-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-web-url-mappings-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-wrapper-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/dist/grails-wrapper-support-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/aopalliance/aopalliance/jars/aopalliance-1.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/asm/asm/jars/asm-3.3.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/bouncycastle/bcmail-jdk14/jars/bcmail-jdk14-138.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/bouncycastle/bcprov-jdk14/jars/bcprov-jdk14-138.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/cglib/cglib/jars/cglib-2.2.2.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/com.google.code.findbugs/jsr305/jars/jsr305-1.3.9.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/com.google.code.gson/gson/jars/gson-2.2.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/com.google.guava/guava/jars/guava-10.0.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/com.google.protobuf/protobuf-java/jars/protobuf-java-2.5.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru/jars/concurrentlinkedhashmap-lru-1.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/com.googlecode.json-simple/json-simple/jars/json-simple-1.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/com.h2database/h2/jars/h2-1.3.176.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/com.lowagie/itext/jars/itext-2.0.8.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/commons-cli/commons-cli/jars/commons-cli-1.2.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/commons-codec/commons-codec/jars/commons-codec-1.6.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/commons-collections/commons-collections/jars/commons-collections-3.2.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/commons-fileupload/commons-fileupload/jars/commons-fileupload-1.3.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/commons-io/commons-io/jars/commons-io-2.2.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/commons-lang/commons-lang/jars/commons-lang-2.6.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/commons-validator/commons-validator/jars/commons-validator-1.4.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/hsqldb/hsqldb/jars/hsqldb-1.8.0.10.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/javax.annotation/jsr250-api/jars/jsr250-api-1.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/javax.enterprise/cdi-api/jars/cdi-api-1.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/javax.inject/javax.inject/jars/javax.inject-1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/javax.servlet/javax.servlet-api/jars/javax.servlet-api-3.0.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/javax.servlet/jsp-api/jars/jsp-api-2.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/javax.servlet.jsp/jsp-api/jars/jsp-api-2.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/javax.transaction/jta/jars/jta-1.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/jline/jline/jars/jline-2.12.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/junit/junit/jars/junit-4.12.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/log4j/log4j/jars/log4j-1.2.17.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/net.java.dev.jna/jna/jars/jna-4.0.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/opensymphony/sitemesh/jars/sitemesh-2.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.ant/ant/jars/ant-1.8.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.ant/ant-junit/jars/ant-junit-1.8.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.ant/ant-launcher/jars/ant-launcher-1.8.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.ant/ant-trax/jars/ant-trax-1.7.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.httpcomponents/httpclient/jars/httpclient-4.2.6.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.httpcomponents/httpcore/jars/httpcore-4.2.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.ivy/ivy/jars/ivy-2.3.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.maven/maven-aether-provider/jars/maven-aether-provider-3.2.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.maven/maven-model/jars/maven-model-3.2.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.maven/maven-model-builder/jars/maven-model-builder-3.2.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.maven/maven-repository-metadata/jars/maven-repository-metadata-3.2.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.maven/maven-settings/jars/maven-settings-3.2.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.maven/maven-settings-builder/jars/maven-settings-builder-3.2.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.tomcat/tomcat-jdbc/jars/tomcat-jdbc-7.0.50.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.tomcat/tomcat-juli/jars/tomcat-juli-7.0.50.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.apache.tomcat.embed/tomcat-embed-logging-log4j/jars/tomcat-embed-logging-log4j-7.0.50.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.aspectj/aspectjrt/jars/aspectjrt-1.8.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.aspectj/aspectjweaver/jars/aspectjweaver-1.8.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.bouncycastle/bcpg-jdk15/jars/bcpg-jdk15-1.45.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.bouncycastle/bcprov-jdk15/jars/bcprov-jdk15-1.45.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.codehaus.gant/gant_groovy1.8/jars/gant_groovy1.8-1.9.6.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.codehaus.gpars/gpars/jars/gpars-1.2.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.codehaus.groovy/groovy-all/jars/groovy-all-2.4.3.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.codehaus.jsr166-mirror/jsr166y/jars/jsr166y-1.7.0.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.codehaus.plexus/plexus-classworlds/jars/plexus-classworlds-2.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.codehaus.plexus/plexus-component-annotations/jars/plexus-component-annotations-1.5.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.codehaus.plexus/plexus-interpolation/jars/plexus-interpolation-1.21.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.codehaus.plexus/plexus-utils/jars/plexus-utils-3.0.20.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-api/jars/aether-api-1.0.2.v20150114.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-connector-basic/jars/aether-connector-basic-1.0.2.v20150114.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-impl/jars/aether-impl-1.0.2.v20150114.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-spi/jars/aether-spi-1.0.2.v20150114.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-transport-file/jars/aether-transport-file-1.0.2.v20150114.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-transport-http/jars/aether-transport-http-1.0.2.v20150114.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.aether/aether-util/jars/aether-util-1.0.2.v20150114.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.sisu/org.eclipse.sisu.inject/jars/org.eclipse.sisu.inject-0.0.0.M5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.eclipse.sisu/org.eclipse.sisu.plexus/jars/org.eclipse.sisu.plexus-0.0.0.M5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.fusesource.jansi/jansi/jars/jansi-1.11.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.grails/grails-datastore-core/jars/grails-datastore-core-3.1.4.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.grails/grails-datastore-gorm/jars/grails-datastore-gorm-3.1.4.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.grails/grails-datastore-simple/jars/grails-datastore-simple-3.1.4.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.grails/grails-gdoc-engine/jars/grails-gdoc-engine-1.0.1.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.hamcrest/hamcrest-core/jars/hamcrest-core-1.3.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/jars/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.jsoup/jsoup/jars/jsoup-1.7.3.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.objenesis/objenesis/jars/objenesis-1.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.slf4j/jcl-over-slf4j/jars/jcl-over-slf4j-1.7.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.slf4j/jul-to-slf4j/jars/jul-to-slf4j-1.7.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.slf4j/slf4j-api/jars/slf4j-api-1.7.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.slf4j/slf4j-simple/jars/slf4j-simple-1.7.5.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.sonatype.plexus/plexus-cipher/jars/plexus-cipher-1.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.sonatype.plexus/plexus-sec-dispatcher/jars/plexus-sec-dispatcher-1.3.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.sonatype.sisu/sisu-guice/jars/sisu-guice-3.1.0-no_aop.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.spockframework/spock-core/jars/spock-core-1.0-groovy-2.4.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-aop/jars/spring-aop-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-aspects/jars/spring-aspects-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-beans/jars/spring-beans-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-context/jars/spring-context-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-context-support/jars/spring-context-support-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-core/jars/spring-core-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-expression/jars/spring-expression-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-jdbc/jars/spring-jdbc-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-test/jars/spring-test-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-tx/jars/spring-tx-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-web/jars/spring-web-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/spring-webmvc/jars/spring-webmvc-4.1.5.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework/springloaded/jars/springloaded-1.2.3.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.springframework.uaa/org.springframework.uaa.client/jars/org.springframework.uaa.client-1.0.1.RELEASE.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.xhtmlrenderer/core-renderer/jars/core-renderer-R8.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/org.yaml/snakeyaml/jars/snakeyaml-1.8.jar"/>
+      <zipfileset src="${basedir}/../../.gvm/grails/2.5.0/lib/xalan/serializer/jars/serializer-2.7.2.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/sun/jersey/jersey-json/1.9/jersey-json-1.9.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/sun/jersey/jersey-core/1.9/jersey-core-1.9.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/mortbay/jetty/jetty-util/6.1.26/jetty-util-6.1.26.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/mortbay/jetty/jetty/6.1.26/jetty-6.1.26.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-net/commons-net/3.1/commons-net-3.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-beanutils/commons-beanutils-core/1.8.0/commons-beanutils-core-1.8.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-digester/commons-digester/1.8/commons-digester-1.8.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-configuration/commons-configuration/1.6/commons-configuration-1.6.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/jamesmurty/utils/java-xmlbuilder/0.4/java-xmlbuilder-0.4.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/httpcomponents/httpcore/4.1.2/httpcore-4.1.2.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/httpcomponents/httpclient/4.1.2/httpclient-4.1.2.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/net/java/dev/jets3t/jets3t/0.9.0/jets3t-0.9.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-io/commons-io/2.4/commons-io-2.4.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-codec/commons-codec/1.4/commons-codec-1.4.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/xmlenc/xmlenc/0.52/xmlenc-0.52.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/google/guava/guava/11.0.2/guava-11.0.2.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/hadoop/hadoop-common/2.6.0/hadoop-common-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/io/netty/netty/3.6.2.Final/netty-3.6.2.Final.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/google/inject/extensions/guice-servlet/3.0/guice-servlet-3.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/hadoop/hadoop-annotations/2.6.0/hadoop-annotations-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/xerial/snappy/snappy-java/1.0.4.1/snappy-java-1.0.4.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/avro/avro/1.7.4/avro-1.7.4.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/sun/jersey/contribs/jersey-guice/1.9/jersey-guice-1.9.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/google/inject/guice/3.0/guice-3.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/codehaus/jackson/jackson-xc/1.9.13/jackson-xc-1.9.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/codehaus/jackson/jackson-jaxrs/1.9.13/jackson-jaxrs-1.9.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/sun/jersey/jersey-client/1.9/jersey-client-1.9.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/javax/activation/activation/1.1/activation-1.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-api/2.6.0/hadoop-yarn-api-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/hadoop/hadoop-yarn-common/2.6.0/hadoop-yarn-common-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/hadoop/hadoop-mapreduce-client-core/2.6.0/hadoop-mapreduce-client-core-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/tukaani/xz/1.0/xz-1.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/commons/commons-compress/1.4.1/commons-compress-1.4.1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/zookeeper/zookeeper/3.4.6/zookeeper-3.4.6.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/htrace/htrace-core/3.0.4/htrace-core-3.0.4.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/curator/curator-recipes/2.6.0/curator-recipes-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/curator/curator-client/2.6.0/curator-client-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/jcraft/jsch/0.1.42/jsch-0.1.42.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/curator/curator-framework/2.6.0/curator-framework-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/directory/api/api-util/1.0.0-M20/api-util-1.0.0-M20.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/directory/api/api-asn1-api/1.0.0-M20/api-asn1-api-1.0.0-M20.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/directory/server/apacheds-i18n/2.0.0-M15/apacheds-i18n-2.0.0-M15.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/directory/server/apacheds-kerberos-codec/2.0.0-M15/apacheds-kerberos-codec-2.0.0-M15.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/apache/hadoop/hadoop-auth/2.6.0/hadoop-auth-2.6.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/sun/jersey/jersey-server/1.9/jersey-server-1.9.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/commons-el/commons-el/1.0/commons-el-1.0.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/tomcat/jasper-runtime/5.5.23/jasper-runtime-5.5.23.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/tomcat/jasper-compiler/5.5.23/jasper-compiler-5.5.23.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.dijsktraBFShadoop.jar}" tofile="${artifact.temp.output.dijsktrabfshadoop:jar}/dijsktraBFShadoop.jar"/>
+    <ant antfile="" target="null" dir="">
+      <property name="artifact.output.path" value="${artifact.temp.output.dijsktrabfshadoop:jar}"/>
+    </ant>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.dijsktrabfshadoop:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.dijsktrabfshadoop:jar}"/>
+    <copy todir="${artifact.output.dijsktrabfshadoop:jar}">
+      <fileset dir="${artifact.temp.output.dijsktrabfshadoop:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
