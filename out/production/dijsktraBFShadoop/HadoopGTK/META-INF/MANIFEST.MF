@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
-Class-Path: HadoopGTK
+Class-Path: ~/Software/dijsktraBFShadoop/src/java
 Main-Class: HadoopGTK.Intersect
 
