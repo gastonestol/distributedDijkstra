@@ -180,7 +180,7 @@ public class SSSPJob extends ExampleBaseJob {
         return 0;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main (String[] args) throws Exception {
 
         int res = ToolRunner.run(new Configuration(), new SSSPJob(), args);
         if(args.length != 2){
