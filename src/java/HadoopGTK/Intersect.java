@@ -158,17 +158,17 @@ public class Intersect  extends ExampleBaseJob {
         JobInfo jobInfo = new JobInfo() {
             @Override
             public Class<? extends Reducer> getCombinerClass() {
-                return IntersectReducer.class;
+                return HadoopGTK.Intersect.IntersectReducer.class;
             }
 
             @Override
             public Class<?> getJarByClass() {
-                return Intersect.class;
+                return HadoopGTK.Intersect.class;
             }
 
             @Override
             public Class<? extends Mapper> getMapperClass() {
-                return IntersectMapper.class;
+                return HadoopGTK.Intersect.IntersectMapper.class;
             }
 
             @Override
@@ -183,7 +183,7 @@ public class Intersect  extends ExampleBaseJob {
 
             @Override
             public Class<? extends Reducer> getReducerClass() {
-                return IntersectReducer.class;
+                return HadoopGTK.Intersect.IntersectReducer.class;
             }
 
         };
@@ -203,7 +203,7 @@ public class Intersect  extends ExampleBaseJob {
         return job.waitForCompletion(true) ? 0 : 1;// wait for the job to complete
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main (String[]args) throws Exception {
 
         int res = ToolRunner.run(new Configuration(), new Intersect(), args);
         if (args.length != 2) {
