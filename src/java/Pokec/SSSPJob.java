@@ -1,4 +1,4 @@
-package Memetracker;
+package Pokec;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -151,7 +151,7 @@ public class SSSPJob extends ExampleBaseJob {
 
             job = getJobConf(args); // get the job configuration
             String input, output;
-
+            job.getConfiguration().setInt("mapred.linerecordreader.maxlength", Integer.MAX_VALUE);
             //setting the input file and output file for each iteration
             //during the first time the user-specified file will be the input whereas for the subsequent iterations
             // the output of the previous iteration will be the input
@@ -162,9 +162,9 @@ public class SSSPJob extends ExampleBaseJob {
                 input = args[1] + iterationCount;
 
             output = args[1] + (iterationCount + 1); // setting the output file
-
             FileInputFormat.setInputPaths(job, new Path(input)); // setting the input files for the job
             FileOutputFormat.setOutputPath(job, new Path(output)); // setting the output files for the job
+            job.setInputFormatClass(CustomFileInputFormat.class);
 
             job.waitForCompletion(true); // wait for the job to complete
 

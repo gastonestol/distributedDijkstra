@@ -1,4 +1,4 @@
-package Memetracker;
+package Pokec;
 
 import org.apache.hadoop.io.Text;
 
