@@ -2,6 +2,7 @@ package Pokec;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
@@ -53,10 +54,10 @@ public class SSSPJob extends ExampleBaseJob {
         public void map(Object key, Text value, Context context)
                 throws IOException, InterruptedException {
 
-            Edge inEdge = new Edge(value.toString());
-            //Node inNode = new Node(value.toString());
+
+            Node inNode = new Node(value.toString());
             //calls the map method of the super class SearchMapper
-            super.map(key, value, context, inEdge);
+            super.map(key, value, context, inNode);
 
         }
     }
@@ -93,9 +94,89 @@ public class SSSPJob extends ExampleBaseJob {
         }
     }
 
+    /**
+     * Input format node_from<tab>node_to
+     */
+    private class FormatterMapper extends Mapper<Object, Text, Text, Text> {
+
+        public void map(Object key, Text value, Context context)
+                throws IOException, InterruptedException {
+            String [] nodes = value.toString().split("\t");
+            //Node node = new Node(value.toString());
+            context.write(new Text(nodes[0]), new Text(nodes[1]));
+
+        }
+
+
+    }
+
+    /**
+     * Output Format: nodeID<tab>list_of_adjacent_nodes|distance_from_the_source|color|parent
+     *
+     */
+    private class FormatterReducer extends Reducer<Text, Text, Text, Text> {
+
+        public void reduce(Text key, Iterable<IntWritable> values, Context context)
+                throws IOException, InterruptedException {
+            Node node = new Node();
+            node.setId(key.toString());
+            if(key.toString().equals(context.getConfiguration().get("source"))){
+                node.setColor(Node.Color.GRAY);
+                node.setDistance(0);
+            }else{
+                node.setColor(Node.Color.WHITE);
+                node.setDistance(Integer.MAX_VALUE);
+            }
+
+            for (IntWritable val : values){
+                node.addEdge(val.toString());
+            }
+            context.write(key,node.getNodeInfo());
+        }
+
+    }
+
 
     // method to set the configuration for the job and the mapper and the reducer classes
-    private Job getJobConf(String[] args) throws Exception {
+    private Job getJobFormatterConf() throws Exception {
+
+        JobInfo jobInfo = new JobInfo() {
+            @Override
+            public Class<? extends Reducer> getCombinerClass() {
+                return null;
+            }
+
+            @Override
+            public Class<?> getJarByClass() {
+                return SSSPJob.class;
+            }
+
+            @Override
+            public Class<? extends Mapper> getMapperClass() {
+                return FormatterMapper.class;
+            }
+
+            @Override
+            public Class<?> getOutputKeyClass() {
+                return Text.class;
+            }
+
+            @Override
+            public Class<?> getOutputValueClass() {
+                return Text.class;
+            }
+
+            @Override
+            public Class<? extends Reducer> getReducerClass() {
+                return FormatterReducer.class;
+            }
+        };
+
+        return setupJob("formatterJob", jobInfo);
+
+
+    }
+    private Job getJobSSSPConf() throws Exception {
 
         JobInfo jobInfo = new JobInfo() {
             @Override
@@ -129,7 +210,7 @@ public class SSSPJob extends ExampleBaseJob {
             }
         };
 
-        return setupJob("ssspjob", jobInfo);
+        return setupJob("ssspJob", jobInfo);
 
 
     }
@@ -137,6 +218,34 @@ public class SSSPJob extends ExampleBaseJob {
     // the driver to execute the job and invoke the map/reduce functions
 
     public int run(String[] args) throws Exception {
+
+        long formattingPhase = 0, ssspPhrase = 0;
+
+        String auxiliaryFile = new Path(new Path(args[0]).getParent().getName()+"/formattedFile").getName();
+        formattingPhase = formatterJob(args,args[0],auxiliaryFile);
+        ssspPhrase = ssspJob(args,auxiliaryFile, args[2]);
+
+
+        return 0;
+
+    }
+
+    private long formatterJob(String [] args, String inputPath, String outputPath)
+            throws Exception {
+
+        Job job = getJobFormatterConf();
+
+
+
+
+        return 0;
+
+    }
+
+    private long ssspJob(String [] args, String inputPath, String outputPath)
+            throws Exception {
+
+
 
         int iterationCount = 0; // counter to set the ordinal number of the intermediate outputs
 
@@ -149,19 +258,19 @@ public class SSSPJob extends ExampleBaseJob {
 
         while(terminationValue >0){
 
-            job = getJobConf(args); // get the job configuration
+            job = getJobSSSPConf();
             String input, output;
             job.getConfiguration().setInt("mapred.linerecordreader.maxlength", Integer.MAX_VALUE);
             //setting the input file and output file for each iteration
             //during the first time the user-specified file will be the input whereas for the subsequent iterations
             // the output of the previous iteration will be the input
             if (iterationCount == 0) // for the first iteration the input will be the first input argument
-                input = args[0];
+                input = inputPath;
             else
                 // for the remaining iterations, the input will be the output of the previous iteration
-                input = args[1] + iterationCount;
+                input = outputPath + iterationCount;
 
-            output = args[1] + (iterationCount + 1); // setting the output file
+            output = outputPath + (iterationCount + 1); // setting the output file
             FileInputFormat.setInputPaths(job, new Path(input)); // setting the input files for the job
             FileOutputFormat.setOutputPath(job, new Path(output)); // setting the output files for the job
             job.setInputFormatClass(CustomFileInputFormat.class);
@@ -185,5 +294,6 @@ public class SSSPJob extends ExampleBaseJob {
         }
         System.exit(res);
     }
+
 
 }

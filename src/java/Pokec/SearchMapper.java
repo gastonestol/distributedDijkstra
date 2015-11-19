@@ -31,25 +31,25 @@ import java.io.IOException;
 public class SearchMapper extends Mapper<Object, Text, Text, Text> {
 
     //the parameters are the types of the input key, input value and the Context object through which the Mapper communicates with the Hadoop framework
-    public void map(Object key, Text value, Context context, Edge inEdge)
+    public void map(Object key, Text value, Context context, Node inNode)
             throws IOException, InterruptedException {
 
 
 
         // For each GRAY node, emit each of the adjacent nodes as a new node (also GRAY)
         //if the adjacent node is already processed and colored BLACK, the reducer retains the color BLACK
-        if (inEdge.fromNode.getColor() == Node.Color.GRAY) {
+        if (inNode.getColor() == Node.Color.GRAY) {
 
 
 
 
-            for (String neighbor : inEdge.fromNode.getEdges()) { // for all the adjacent nodes of
+            for (String neighbor : inNode.getEdges()) { // for all the adjacent nodes of
                 // the gray node
 
                 Node adjacentNode = new Node(); // create a new node
 
                 adjacentNode.setId(neighbor); // set the id of the node
-                adjacentNode.setDistance(inEdge.fromNode.getDistance() + inEdge.weight); // set the distance of the node, the distance of the adjacentNode is set to be the distance
+                adjacentNode.setDistance(inNode.getDistance() + 1); // set the distance of the node, the distance of the adjacentNode is set to be the distance
                 //of its predecessor node+ 1, this is done since we consider a graph of unit edge weights
                 adjacentNode.setColor(Node.Color.GRAY); // set the color of the node to be GRAY
                 adjacentNode.setParent(inNode.getId()); // set the parent of the node, if the adjacentNode is already visited by some other parent node, it is not update in the reducer
