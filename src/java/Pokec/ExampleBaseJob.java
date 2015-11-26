@@ -41,7 +41,7 @@ public abstract class ExampleBaseJob extends Configured implements Tool {
         job.setReducerClass(jobInfo.getReducerClass());
 
         //the number of reducers is set to 3, this can be altered according to the program's requirements
-        job.setNumReduceTasks(3);
+        job.setNumReduceTasks(1);
 
         // set the type of the output key and value for the Map & Reduce
         // functions
