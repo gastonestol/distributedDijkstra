@@ -94,47 +94,8 @@ public class SSSPJob extends ExampleBaseJob {
         }
     }
 
-    /**
-     * Input format node_from<tab>node_to
-     */
-    private class FormatterMapper extends Mapper<Object, Text, Text, Text> {
-
-        public void map(Object key, Text value, Context context)
-                throws IOException, InterruptedException {
-            String [] nodes = value.toString().split("\t");
-            //Node node = new Node(value.toString());
-            context.write(new Text(nodes[0]), new Text(nodes[1]));
-
-        }
 
 
-    }
-
-    /**
-     * Output Format: nodeID<tab>list_of_adjacent_nodes|distance_from_the_source|color|parent
-     *
-     */
-    private class FormatterReducer extends Reducer<Text, Text, Text, Text> {
-
-        public void reduce(Text key, Iterable<IntWritable> values, Context context)
-                throws IOException, InterruptedException {
-            Node node = new Node();
-            node.setId(key.toString());
-            if(key.toString().equals(context.getConfiguration().get("source"))){
-                node.setColor(Node.Color.GRAY);
-                node.setDistance(0);
-            }else{
-                node.setColor(Node.Color.WHITE);
-                node.setDistance(Integer.MAX_VALUE);
-            }
-
-            for (IntWritable val : values){
-                node.addEdge(val.toString());
-            }
-            context.write(key,node.getNodeInfo());
-        }
-
-    }
 
 
     // method to set the configuration for the job and the mapper and the reducer classes
@@ -176,7 +137,7 @@ public class SSSPJob extends ExampleBaseJob {
 
 
     }
-    private Job getJobSSSPConf() throws Exception {
+    public Job getJobSSSPConf() throws Exception {
 
         JobInfo jobInfo = new JobInfo() {
             @Override
@@ -222,27 +183,28 @@ public class SSSPJob extends ExampleBaseJob {
         long formattingPhase = 0, ssspPhrase = 0;
 
         String auxiliaryFile = new Path(new Path(args[0]).getParent().getName()+"/formattedFile").getName();
-        formattingPhase = formatterJob(args,args[0],auxiliaryFile);
-        ssspPhrase = ssspJob(args,auxiliaryFile, args[2]);
+        formattingPhase = formatterJob(args[0],auxiliaryFile);
+
+       // ssspPhrase = ssspJob(args,auxiliaryFile, args[2]);
 
 
         return 0;
 
     }
 
-    private long formatterJob(String [] args, String inputPath, String outputPath)
+    public long formatterJob( String inputPath, String outputPath)
             throws Exception {
 
         Job job = getJobFormatterConf();
-
-
-
+        FileInputFormat.setInputPaths(job, new Path(inputPath)); // setting the input files for the job
+        FileOutputFormat.setOutputPath(job, new Path(outputPath)); // setting the output files for the job
+        job.waitForCompletion(true); // wait for the job to complete
 
         return 0;
 
     }
 
-    private long ssspJob(String [] args, String inputPath, String outputPath)
+    public long ssspJob(String inputPath, String outputPath)
             throws Exception {
 
 
@@ -273,7 +235,6 @@ public class SSSPJob extends ExampleBaseJob {
             output = outputPath + (iterationCount + 1); // setting the output file
             FileInputFormat.setInputPaths(job, new Path(input)); // setting the input files for the job
             FileOutputFormat.setOutputPath(job, new Path(output)); // setting the output files for the job
-            job.setInputFormatClass(CustomFileInputFormat.class);
 
             job.waitForCompletion(true); // wait for the job to complete
 

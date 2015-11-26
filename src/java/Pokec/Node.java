@@ -28,7 +28,7 @@ public class Node {
         WHITE, GRAY, BLACK
     };
 
-    private String id;
+    private String id; // id of the node
     private int distance; // distance of the node from the source
     private List<String> edges = new ArrayList<String>(); // list of edges
     private Color color = Color.WHITE;
@@ -41,21 +41,11 @@ public class Node {
         color = Color.WHITE;
         parent = null;
     }
-    public Node(String id) {
-
-        this.id = id;
-        distance = Integer.MAX_VALUE;
-        color = Color.WHITE;
-        parent = null;
-    }
-    public void addEdge(String id){
-        edges.add(id);
-    }
 
     // constructor
     //the parameter nodeInfo  is the line that is passed from the input, this nodeInfo is then split into key, value pair where the key is the node id
     //and the value is the information associated with the node
-   /* public Node(String nodeInfo) {
+    public Node(String nodeInfo) {
 
         String[] inputLine = nodeInfo.split("\t"); //splitting the input line record by tab delimiter into key and value
         String key = "", value = ""; //initializing the strings 'key' and 'value'
@@ -95,8 +85,7 @@ public class Node {
         // setting the parent of the node
         this.parent = tokens[3];
 
-    }*/
-
+    }
 
     // this method appends the list of adjacent nodes, the distance , the color and the parent and returns all these information as a single Text
     public Text getNodeInfo() {
@@ -161,6 +150,8 @@ public class Node {
     public List<String> getEdges() {
         return this.edges;
     }
+
+    public void setEdge(String nodeId){this.edges.add(nodeId); }
 
     public void setEdges(List<String> edges) {
         this.edges = edges;

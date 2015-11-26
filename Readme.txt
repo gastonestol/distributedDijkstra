@@ -14,14 +14,23 @@ sbin/start-yarn.sh
 An Example
 
  COMPILE
- $HADOOP_HOME/bin/hadoop com.sun.tools.javac.Main    $DIJSKTRA_HOME/src/java/HadoopGTK/*.java
+ $HADOOP_HOME/bin/hadoop com.sun.tools.javac.Main    $DIJSKTRA_HOME/src/java/Pokec/*.java
+ grails compile
  CREATE JAR:
- jar cfm program.jar META-INF/MANIFEST.MF  HadoopGTK/*.class
+ jar cfm program.jar META-INF/MANIFEST.MF  Pokec/*.class
  RUN:
- $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/dijsktraBFShadoop/program.jar HadoopGTK.SSSPJob /user/gaston/intersectInput /user/gaston/intersectOutput
+ $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Pokec.SSSPJob /user/gaston/pokecInput /user/gaston/pokecOutput
 
 
 Common problems:
 
 No name node starting
  solution ----->  namenode format :(
+
+  COMPILE
+  $HADOOP_HOME/bin/hadoop com.sun.tools.javac.Main    $DIJSKTRA_HOME/src/java/Pokec/*.java
+  CREATE JAR:
+  jar cfm program.jar META-INF/MANIFEST.MF  Pokec/*.class
+  RUN:
+  $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/dijsktraBFShadoop/program.jar Pokec.SSSPJob /user/gaston/pokecInput /user/gaston/pokecOutput
+
