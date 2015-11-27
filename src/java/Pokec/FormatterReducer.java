@@ -14,11 +14,11 @@ import java.io.IOException;
  * Output Format: nodeID<tab>list_of_adjacent_nodes|distance_from_the_source|color|parent
  *
  */
-public class FormatterReducer extends Reducer<Text, Text, Text, Text> {
+public class FormatterReducer extends Reducer<Text, IntWritable, Text, Text> {
 
+    @Override
+    public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 
-    public Node reduce(Text key, Iterable<IntWritable> values, Context context)
-            throws IOException, InterruptedException {
         Node node = new Node();
         node.setId(key.toString());
         if(key.toString().equals(context.getConfiguration().get("source"))){
@@ -32,8 +32,8 @@ public class FormatterReducer extends Reducer<Text, Text, Text, Text> {
         for (IntWritable val : values){
             node.setEdge(val.toString());
         }
+        System.out.println("Emiting key: "+key.toString()+" value: "+node.getNodeInfo());
         context.write(key,new Text(node.getNodeInfo()));
-        return node;
     }
 
 }
