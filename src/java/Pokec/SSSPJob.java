@@ -263,8 +263,8 @@ public class SSSPJob extends ExampleBaseJob {
     public static void main (String[] args) throws Exception {
 
         int res = ToolRunner.run(new Configuration(), new SSSPJob(), args);
-        if(args.length != 2){
-            System.err.println("Usage: <input dir> <source node> ");
+        if(args.length != 3){
+            System.err.println("Usage: <input dir> <source node> <output di>");
         }
         System.exit(res);
     }

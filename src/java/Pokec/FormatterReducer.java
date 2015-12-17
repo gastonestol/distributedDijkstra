@@ -23,10 +23,12 @@ public class FormatterReducer extends Reducer<Text, IntWritable, Text, Text> {
         node.setId(key.toString());
         if(key.toString().equals(context.getConfiguration().get("source"))){
             node.setColor(Node.Color.GRAY);
+            node.setParent("source");
             node.setDistance(0);
         }else{
             node.setColor(Node.Color.WHITE);
             node.setDistance(Integer.MAX_VALUE);
+
         }
 
         for (IntWritable val : values){
