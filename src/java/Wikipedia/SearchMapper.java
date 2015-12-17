@@ -32,16 +32,19 @@ import java.io.IOException;
 public class SearchMapper extends Mapper<Object, Text, Text, Text> {
 
     //the parameters are the types of the input key, input value and the Context object through which the Mapper communicates with the Hadoop framework
-    public void map(Object key, Text value, Context context,Node inNode)
-            throws IOException, InterruptedException {
+    public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
-        Long distance = inNode.getDistance();
-        context.write(new Text(inNode.getId()), inNode.getNodeInfo());
-        for(String nodeId :inNode.getEdges()){
+        Node node = new Node(value.toString());
 
-            context.write(new Text(nodeId),new Text( String.valueOf(distance)));
+        if(key.toString().equals(context.getConfiguration().get("source"))){
+            node.setDistance(0L);
+        }else{
+            node.setDistance(Long.MAX_VALUE);
 
         }
+        context.write(new Text(node.getId()),new Text( node.getNodeInfo()));
+
+
 
 
 

@@ -13,9 +13,9 @@ import java.io.IOException;
  *         algorithm. 
  *         Make a new node which combines all information for this single node id that is for each key. The new node should have the full list of edges, the minimum distance, the darkest Color, and the parent/predecessor node 
  *
- * Input format <key,value> : <nodeId, list_of_adjacent_nodes|distance_from_the_source|color|parent_node>
+ * Input format <key,value> : <nodeId, list_of_adjacent_nodes|distance_from_the_source>
  *
- * Output format <key,value> : <nodeId, (updated) list_of_adjacent_nodes|distance_from_the_source|color|parent_node>
+ * Output format <key,value> : <nodeId, (updated) list_of_adjacent_nodes|distance_from_the_source>
  *
  *
  */
@@ -27,12 +27,13 @@ public class SearchReducer extends Reducer<Text, Text, Text, Text> {
 
     //the parameters are the types of the input key, the values associated with the key, the Context object through which the Reducer communicates with the Hadoop framework and the node whose information has to be output
     //the return type is a Node
-    public Node reduce(Text key, Iterable<Text> values, Context context, Node outNode)
-            throws IOException, InterruptedException {
+    public Node reduce(Text key, Iterable<Text> values, Context context, Node outNode) throws IOException, InterruptedException {
+
         Long minimunDistance = Long.MAX_VALUE;
         for(Text value : values){
+
             if(Node.isNode(value.toString()))
-            outNode = new Node(key.toString() + "\t" + value.toString());
+                outNode = new Node(value.toString());
             else if( Long.valueOf(value.toString()) < minimunDistance)
                 minimunDistance = Long.valueOf(value.toString());
 

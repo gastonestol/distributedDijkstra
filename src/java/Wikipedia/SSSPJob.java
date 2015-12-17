@@ -1,10 +1,7 @@
 package Wikipedia;
 
 
-import Pokec.*;
-import Pokec.FormatterReducer;
-import Pokec.Node;
-import Pokec.SearchMapper;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -40,55 +37,6 @@ public class SSSPJob extends ExampleBaseJob {
 
 
 
-    // method to set the configuration for the job and the mapper and the reducer classes
-    private Job getJobFormatterConf() throws Exception {
-
-        JobInfo jobInfo = new JobInfo() {
-            @Override
-            public Class<? extends Reducer> getCombinerClass() {
-                return null;
-            }
-
-            @Override
-            public Class<?> getJarByClass() {
-                return Pokec.SSSPJob.class;
-            }
-
-            @Override
-            public Class<? extends Mapper> getMapperClass() {
-                return FormatterMapper.class;
-            }
-
-            @Override
-            public Class<?> getOutputKeyClass() {
-                return Text.class;
-            }
-
-            @Override
-            public Class<?> getOutputValueClass() {
-                return Text.class;
-            }
-
-            @Override
-            public Class<? extends Reducer> getReducerClass() {
-                return FormatterReducer.class;
-            }
-        };
-
-        return setupJob("formatterJob", jobInfo);
-
-
-    }
-
-
-
-
-    //counter to determine the number of iterations or if more iterations are required to execute the map and reduce functions
-
-    static enum MoreIterations {
-        numberOfIterations
-    }
-
     /**
      *
      * Description : Mapper class that implements the map part of Single-source shortest path algorithm. It extends the SearchMapper class.
@@ -106,9 +54,8 @@ public class SSSPJob extends ExampleBaseJob {
         public void map(Object key, Text value, Context context)
                 throws IOException, InterruptedException {
 
-            Node inNode = new Node(value.toString());
             //calls the map method of the super class SearchMapper
-            super.map(key, value, context, inNode);
+            super.map(key, value, context);
 
         }
     }
@@ -139,52 +86,11 @@ public class SSSPJob extends ExampleBaseJob {
             //call the reduce method of SearchReducer class
             outNode = super.reduce(key, values, context, outNode);
 
-            //if the color of the node is gray, the execution has to continue, this is done by incrementing the counter
-            if (outNode.getColor() == Node.Color.GRAY)
-                context.getCounter(MoreIterations.numberOfIterations).increment(1L);
+
         }
     }
 
-    private long ssspJob( String auxiliaryFile, String outputFile) throws Exception{
 
-        int iterationCount = 0; // counter to set the ordinal number of the intermediate outputs
-
-        Job job;
-
-        long terminationValue =1;
-
-
-        // while there are more gray nodes to process
-
-        while(terminationValue >0){
-
-            job = getJobSsspConfiguration(); // get the job configuration
-            String input, output;
-
-            //setting the input file and output file for each iteration
-            //during the first time the user-specified file will be the input whereas for the subsequent iterations
-            // the output of the previous iteration will be the input
-            if (iterationCount == 0) // for the first iteration the input will be the first input argument
-                input = auxiliaryFile;
-            else
-                // for the remaining iterations, the input will be the output of the previous iteration
-                input = outputFile + iterationCount;
-
-            output = outputFile + (iterationCount + 1); // setting the output file
-
-            FileInputFormat.setInputPaths(job, new Path(input)); // setting the input files for the job
-            FileOutputFormat.setOutputPath(job, new Path(output)); // setting the output files for the job
-
-            job.waitForCompletion(true); // wait for the job to complete
-
-            Counters jobCntrs = job.getCounters();
-            terminationValue = jobCntrs.findCounter(MoreIterations.numberOfIterations).getValue();//if the counter's value is incremented in the reducer(s), then there are more GRAY nodes to process implying that the iteration has to be continued.
-            iterationCount++;
-
-        }
-
-        return 0;
-    }
 
     private Job getJobSsspConfiguration() throws Exception {
         JobInfo jobInfo = new JobInfo() {
@@ -195,7 +101,7 @@ public class SSSPJob extends ExampleBaseJob {
 
             @Override
             public Class<?> getJarByClass() {
-                return Pokec.SSSPJob.class;
+                return Wikipedia.SSSPJob.class;
             }
 
             @Override
@@ -222,10 +128,10 @@ public class SSSPJob extends ExampleBaseJob {
         return setupJob("ssspjob", jobInfo);
     }
 
-    public long formatterJob( String inputPath, String outputPath,String sourceNode)
+    public long ssspJob( String inputPath, String outputPath,String sourceNode)
             throws Exception {
 
-        Job job = getJobFormatterConf();
+        Job job = getJobSsspConfiguration();
         job.getConfiguration().set("source", sourceNode);
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(IntWritable.class);
@@ -250,8 +156,7 @@ public class SSSPJob extends ExampleBaseJob {
         if(fs.exists(new Path(auxiliaryFile)))
             fs.delete(new Path(auxiliaryFile), true);
 
-        formattingPhase = formatterJob(args[0],auxiliaryFile,args[1]);
-        ssspPhrase = ssspJob(auxiliaryFile, args[2]);
+        ssspPhrase = ssspJob(args[0], args[2],args[1]);
 
 
 
