@@ -83,11 +83,9 @@ public class SSSPJob extends ExampleBaseJob {
         public void reduce(Text key, Iterable<Text> values, Context context)
                 throws IOException, InterruptedException {
 
-            //create a new out node and set its values
-            Node outNode = new Node();
 
             //call the reduce method of SearchReducer class
-            super.reduce(key, values, context, outNode);
+            super.reduce(key, values, context);
 
 
         }
@@ -168,6 +166,8 @@ public class SSSPJob extends ExampleBaseJob {
     // the driver to execute the job and invoke the map/reduce functions
 
     public int run(String[] args) throws Exception {
+
+
 
         int diameter;
         try{

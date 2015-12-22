@@ -27,15 +27,19 @@ public class SearchReducer extends Reducer<Text, Text, Text, Text> {
 
     //the parameters are the types of the input key, the values associated with the key, the Context object through which the Reducer communicates with the Hadoop framework and the node whose information has to be output
     //the return type is a Node
-    public void reduce(Text key, Iterable<Text> values, Context context, Node outNode) throws IOException, InterruptedException {
+    public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
-        Long minimunDistance = Long.MAX_VALUE;
+        Integer minimunDistance = Integer.MAX_VALUE;
+        Node outNode = new Node();
         for(Text value : values){
 
             if(Node.isNode(value.toString()))
                 outNode = new Node(value.toString());
-            else if( Long.valueOf(value.toString()) < minimunDistance)
-                minimunDistance = Long.valueOf(value.toString());
+            else{
+
+                if( Integer.valueOf(value.toString()) < minimunDistance)
+                    minimunDistance = Integer.valueOf(value.toString());
+            }
 
         }
         outNode.setDistance(minimunDistance);

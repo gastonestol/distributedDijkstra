@@ -25,15 +25,7 @@ public class Node {
     public static boolean isNode(String nodeInfo) {
 
 
-        try {
-            String[] inputLine = nodeInfo.split(":");
-            String key = inputLine[0]; // node id
-            String value = inputLine[1]; // the list of adjacent nodes, distance, color, parent
-            return true;
-        } catch (Exception e) {
-            return false;
-
-        }
+       return nodeInfo.contains(":");
 
 
     }
@@ -43,12 +35,12 @@ public class Node {
 
 
     private String id; // id of the node
-    private Long distance; // distance of the node from the source
+    private int distance; // distance of the node from the source
     private List<String> edges = new ArrayList<String>(); // list of edges
 
     public Node() {
 
-        distance = Long.MAX_VALUE;
+        distance = Integer.MAX_VALUE;
 
     }
 
@@ -87,14 +79,14 @@ public class Node {
         }
         String val [] =  nodeInfo.split("\\|");
         if(val.length>1){
-            if (val[1].equals("Long.MAX_VALUE")) {
-                this.distance = Long.MAX_VALUE;
+            if (val[1].trim().equals("Integer.MAX_VALUE")) {
+                this.distance = Integer.MAX_VALUE;
             } else {
-                this.distance = Long.parseLong(val[1]);
+                this.distance = Integer.parseInt(val[1].trim());
             }
         }
         else{
-            this.distance = Long.MAX_VALUE;
+            this.distance = Integer.MAX_VALUE;
         }
 
 
@@ -116,15 +108,17 @@ public class Node {
             System.exit(1);
         }
 
+
+
         // after the list of edges, append '|'
         s.append("|");
 
         // append the minimum distance between the current distance and
         // Integer.Max_VALUE
-        if (this.distance < Long.MAX_VALUE) {
+        if (this.distance < Integer.MAX_VALUE) {
             s.append(this.distance);
         } else {
-            s.append("Long.MAX_VALUE");
+            s.append("Integer.MAX_VALUE");
         }
 
 
@@ -137,7 +131,7 @@ public class Node {
         return this.id;
     }
 
-    public Long getDistance() {
+    public Integer getDistance() {
         return this.distance;
     }
 
@@ -145,7 +139,7 @@ public class Node {
         this.id = id;
     }
 
-    public void setDistance(Long distance) {
+    public void setDistance(Integer distance) {
         this.distance = distance;
     }
 

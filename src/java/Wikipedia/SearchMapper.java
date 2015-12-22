@@ -36,18 +36,32 @@ public class SearchMapper extends Mapper<Object, Text, Text, Text> {
 
         Node node = new Node(value.toString());
 
-        if(key.toString().equals(context.getConfiguration().get("source"))){
-            node.setDistance(0L);
-        }else if(!(node.getDistance() != null && node.getDistance()>0L &&  node.getDistance()< Long.MAX_VALUE)){
-            node.setDistance(Long.MAX_VALUE);
+        if(key.toString().equals(context.getConfiguration().get("source").trim())){
+            node.setDistance(0);
+        }else {
+            String val [] =  value.toString().split("\\|");
+            if(val.length>1){
+                if (val[1].trim().equals("Integer.MAX_VALUE")) {
+                    node.setDistance(Integer.MAX_VALUE);
+                } else {
+                    node.setDistance(Integer.parseInt(val[1].trim()));
+                }
+            }
         }
         System.out.println("Mapper: Emiting "+node.getId()+" "+node.getNodeInfo());
 
         context.write(new Text(node.getId()),new Text( node.getNodeInfo()));
 
         for(String adjacentNode : node.getEdges()){
-            System.out.println("Mapper: Emiting "+adjacentNode+" "+String.valueOf(node.getDistance()+1L));
+            System.out.println("Mapper: Emiting " + adjacentNode + " " + String.valueOf(node.getDistance() + 1L));
+            /*if(node.getDistance() == Integer.MAX_VALUE){
+
+            }else{
+                context.write(new Text(adjacentNode),new Text("Integer.MAX_VALUE"));
+
+            }*/
             context.write(new Text(adjacentNode),new Text(String.valueOf(node.getDistance()+1L)));
+
 
         }
 
