@@ -35,6 +35,9 @@ import java.io.IOException;
 public class SSSPJob extends ExampleBaseJob {
 
 
+    static enum MoreIterations {
+        numberOfIterations
+    }
 
 
     /**
@@ -84,7 +87,7 @@ public class SSSPJob extends ExampleBaseJob {
             Node outNode = new Node();
 
             //call the reduce method of SearchReducer class
-            outNode = super.reduce(key, values, context, outNode);
+            super.reduce(key, values, context, outNode);
 
 
         }
@@ -101,7 +104,7 @@ public class SSSPJob extends ExampleBaseJob {
 
             @Override
             public Class<?> getJarByClass() {
-                return Wikipedia.SSSPJob.class;
+                return SSSPJob.class;
             }
 
             @Override
@@ -128,17 +131,36 @@ public class SSSPJob extends ExampleBaseJob {
         return setupJob("ssspjob", jobInfo);
     }
 
-    public long ssspJob( String inputPath, String outputPath,String sourceNode)
+    public long ssspJob( String inputPath, String outputPath,String sourceNode,int diameter)
             throws Exception {
 
-        Job job = getJobSsspConfiguration();
-        job.getConfiguration().set("source", sourceNode);
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(IntWritable.class);
-        FileInputFormat.setInputPaths(job, new Path(inputPath)); // setting the input files for the job
-        FileOutputFormat.setOutputPath(job, new Path(outputPath)); // setting the output files for the job
-        job.waitForCompletion(true); // wait for the job to complete
+        int iterationCount = 0; // counter to set the ordinal number of the intermediate outputs
 
+        Job job;
+        // while there are more gray nodes to process
+
+        while(iterationCount < diameter){
+
+            job = getJobSsspConfiguration(); // get the job configuration
+            job.getConfiguration().set("source", sourceNode);
+            job.setMapOutputKeyClass(Text.class);
+            job.setMapOutputValueClass(Text.class);
+
+            String input, output;
+
+            if (iterationCount == 0){
+                FileInputFormat.setInputPaths(job, new Path(inputPath)); // setting the input files for the job
+                FileOutputFormat.setOutputPath(job, new Path(outputPath+"_"+iterationCount)); // setting the output files for the job
+
+            }else{
+                FileInputFormat.setInputPaths(job, new Path(outputPath+"_"+(iterationCount-1))); // setting the input files for the job
+                FileOutputFormat.setOutputPath(job, new Path(outputPath+"_"+iterationCount)); // setting the output files for the job
+
+            }
+            job.waitForCompletion(true); // wait for the job to complete
+
+            iterationCount++;
+        }
         return 0;
 
     }
@@ -147,20 +169,14 @@ public class SSSPJob extends ExampleBaseJob {
 
     public int run(String[] args) throws Exception {
 
-        long formattingPhase = 0, ssspPhrase = 0;
+        int diameter;
+        try{
+            diameter = Integer.valueOf(args[3]);
 
-
-
-        String auxiliaryFile = new Path(new Path(args[0]).getParent().getName()+"/formattedFile").getName();
-        FileSystem fs = FileSystem.get(getConf());
-        if(fs.exists(new Path(auxiliaryFile)))
-            fs.delete(new Path(auxiliaryFile), true);
-
-        ssspPhrase = ssspJob(args[0], args[2],args[1]);
-
-
-
-
+        }catch (Exception e){
+            diameter = 7;
+        }
+        ssspJob(args[0], args[2],args[1],diameter);
 
 
         return 0;
@@ -171,11 +187,15 @@ public class SSSPJob extends ExampleBaseJob {
 
     public static void main (String[] args) throws Exception {
 
-        int res = ToolRunner.run(new Configuration(), new Pokec.SSSPJob(), args);
-        if(args.length != 3){
-            System.err.println("Usage: <input dir> <source node> <output di>");
+
+        if(args.length < 3) {
+            System.err.println("Usage: <input dir> <source node> <output di> <diameter>");
+        }else{
+            System.out.println("Usage: <input dir> <source node> <output di> <diameter>");
+            int res = ToolRunner.run(new Configuration(), new SSSPJob(), args);
+            System.exit(res);
+
         }
-        System.exit(res);
     }
 
 

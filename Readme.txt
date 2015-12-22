@@ -32,5 +32,6 @@ No name node starting
   CREATE JAR:
   jar cfm program.jar META-INF/MANIFEST.MF  Pokec/*.class
   RUN:
-  $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Pokec.SSSPJob /user/gestol/pokecMinInput 1
+  $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gestol/simplegraph.txt 1 /user/gestol/ssspresult.txt 2
 
+  $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gestol/ssspinput 1 /user/gestol/ssspoutput 2

@@ -87,8 +87,13 @@ public class Node {
         }
         String val [] =  nodeInfo.split("\\|");
         if(val.length>1){
-            this.distance = Long.parseLong(val[1]);
-        }else{
+            if (val[1].equals("Long.MAX_VALUE")) {
+                this.distance = Long.MAX_VALUE;
+            } else {
+                this.distance = Long.parseLong(val[1]);
+            }
+        }
+        else{
             this.distance = Long.MAX_VALUE;
         }
 
@@ -119,7 +124,7 @@ public class Node {
         if (this.distance < Long.MAX_VALUE) {
             s.append(this.distance);
         } else {
-            s.append(Long.MAX_VALUE);
+            s.append("Long.MAX_VALUE");
         }
 
 

@@ -38,11 +38,19 @@ public class SearchMapper extends Mapper<Object, Text, Text, Text> {
 
         if(key.toString().equals(context.getConfiguration().get("source"))){
             node.setDistance(0L);
-        }else{
+        }else if(!(node.getDistance() != null && node.getDistance()>0L &&  node.getDistance()< Long.MAX_VALUE)){
             node.setDistance(Long.MAX_VALUE);
+        }
+        System.out.println("Mapper: Emiting "+node.getId()+" "+node.getNodeInfo());
+
+        context.write(new Text(node.getId()),new Text( node.getNodeInfo()));
+
+        for(String adjacentNode : node.getEdges()){
+            System.out.println("Mapper: Emiting "+adjacentNode+" "+String.valueOf(node.getDistance()+1L));
+            context.write(new Text(adjacentNode),new Text(String.valueOf(node.getDistance()+1L)));
 
         }
-        context.write(new Text(node.getId()),new Text( node.getNodeInfo()));
+
 
 
 
