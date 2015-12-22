@@ -36,8 +36,9 @@ public class SearchReducer extends Reducer<Text, Text, Text, Text> {
             if(Node.isNode(value.toString()))
                 outNode = new Node(value.toString());
             else{
-
-                if( Integer.valueOf(value.toString()) < minimunDistance)
+                if(value.toString().equals("Integer.MAX_VALUE"))
+                    minimunDistance = Integer.MAX_VALUE;
+                else if( Integer.valueOf(value.toString()) < minimunDistance)
                     minimunDistance = Integer.valueOf(value.toString());
             }
 

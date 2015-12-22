@@ -111,7 +111,7 @@ public class Node {
 
 
         // after the list of edges, append '|'
-        s.append("|");
+       /* s.append("|");
 
         // append the minimum distance between the current distance and
         // Integer.Max_VALUE
@@ -119,7 +119,7 @@ public class Node {
             s.append(this.distance);
         } else {
             s.append("Integer.MAX_VALUE");
-        }
+        }*/
 
 
         return new Text(s.toString());
