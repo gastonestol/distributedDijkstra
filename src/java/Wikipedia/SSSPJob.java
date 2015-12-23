@@ -3,11 +3,8 @@ package Wikipedia;
 
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -56,9 +53,9 @@ public class SSSPJob extends ExampleBaseJob {
 
         public void map(Object key, Text value, Context context)
                 throws IOException, InterruptedException {
-
+            WikipediaNode inWikipediaNode = new WikipediaNode(value.toString());
             //calls the map method of the super class SearchMapper
-            super.map(key, value, context);
+            super.map(key, value, context, inWikipediaNode);
 
         }
     }
@@ -83,9 +80,9 @@ public class SSSPJob extends ExampleBaseJob {
         public void reduce(Text key, Iterable<Text> values, Context context)
                 throws IOException, InterruptedException {
 
-
+            WikipediaNode outWikipediaNode = new WikipediaNode();
             //call the reduce method of SearchReducer class
-            super.reduce(key, values, context);
+            super.reduce(key, values, context, outWikipediaNode);
 
 
         }

@@ -20,12 +20,12 @@ import java.util.List;
  *
  *         Hadoop version used : 0.20.2
  */
-public class Node {
+public class WikipediaNode {
 
     public static boolean isNode(String nodeInfo) {
 
 
-       return nodeInfo.contains(":");
+        return nodeInfo.contains(":");
 
 
     }
@@ -38,7 +38,7 @@ public class Node {
     private int distance; // distance of the node from the source
     private List<String> edges = new ArrayList<String>(); // list of edges
 
-    public Node() {
+    public WikipediaNode() {
 
         distance = Integer.MAX_VALUE;
 
@@ -52,14 +52,24 @@ public class Node {
     //nodeId:(edges):distanceToSource
     //2: 3 747213 1664968 1691047 4095634 5535664:distanceToSource
 
-    public Node(String nodeInfo) {
+    public WikipediaNode(String nodeInfo) {
 
-        String[] inputLine = nodeInfo.split(":"); //splitting the input line record by tab delimiter into key and value
-        String key = "", value = "", distance = "";//initializing the strings 'key' and 'value'
-
+        String []inputLine =  nodeInfo.split("\\|");
+        if(inputLine.length>1){
+            if (inputLine[1].trim().equals("Integer.MAX_VALUE")) {
+                this.distance = Integer.MAX_VALUE;
+            } else {
+                this.distance = Integer.parseInt(inputLine[1].trim());
+            }
+        }
+        else{
+            this.distance = Integer.MAX_VALUE;
+        }
+        String []keyAndEdges = inputLine[0].split(":");
+        String key ="",value ="";
         try {
-            key = inputLine[0]; // node id
-            value = inputLine[1]; // the list of adjacent nodes, distance, color, parent
+            key = keyAndEdges[0].trim(); // node id
+            value = keyAndEdges[1]; // the list of adjacent nodes, distance, color, parent
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);
@@ -77,26 +87,12 @@ public class Node {
                 edges.add(s);
             }
         }
-        String val [] =  nodeInfo.split("\\|");
-        if(val.length>1){
-            if (val[1].trim().equals("Integer.MAX_VALUE")) {
-                this.distance = Integer.MAX_VALUE;
-            } else {
-                this.distance = Integer.parseInt(val[1].trim());
-            }
-        }
-        else{
-            this.distance = Integer.MAX_VALUE;
-        }
-
 
     }
 
     // this method appends the list of adjacent nodes, the distance , the color and the parent and returns all these information as a single Text
-    public Text getNodeInfo() {
+    public String getNodeInfo() {
         StringBuffer s = new StringBuffer();
-
-        s.append(this.id);
         s.append(":");
         // forms the list of adjacent nodes by separating them using ' '
         try {
@@ -108,10 +104,8 @@ public class Node {
             System.exit(1);
         }
 
-
-
         // after the list of edges, append '|'
-       /* s.append("|");
+        s.append("|");
 
         // append the minimum distance between the current distance and
         // Integer.Max_VALUE
@@ -119,10 +113,9 @@ public class Node {
             s.append(this.distance);
         } else {
             s.append("Integer.MAX_VALUE");
-        }*/
+        }
 
-
-        return new Text(s.toString());
+        return s.toString();
     }
 
     // getter and setter methods
@@ -152,7 +145,6 @@ public class Node {
     public void setEdges(List<String> edges) {
         this.edges = edges;
     }
-
 
 
 }

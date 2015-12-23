@@ -27,14 +27,14 @@ public class SearchReducer extends Reducer<Text, Text, Text, Text> {
 
     //the parameters are the types of the input key, the values associated with the key, the Context object through which the Reducer communicates with the Hadoop framework and the node whose information has to be output
     //the return type is a Node
-    public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
+    public void reduce(Text key, Iterable<Text> values, Context context, WikipediaNode outWikipediaNode) throws IOException, InterruptedException {
 
         Integer minimunDistance = Integer.MAX_VALUE;
-        Node outNode = new Node();
+        outWikipediaNode.setId(key.toString());
         for(Text value : values){
 
-            if(Node.isNode(value.toString()))
-                outNode = new Node(value.toString());
+            if(WikipediaNode.isNode(value.toString()))
+                outWikipediaNode = new WikipediaNode(value.toString());
             else{
                 if(value.toString().equals("Integer.MAX_VALUE"))
                     minimunDistance = Integer.MAX_VALUE;
@@ -43,14 +43,14 @@ public class SearchReducer extends Reducer<Text, Text, Text, Text> {
             }
 
         }
-        outNode.setDistance(minimunDistance);
+        outWikipediaNode.setDistance(minimunDistance);
 
 
         //emit the key, value pair where the key is the node id and the value is the node's information
 
-        System.out.println("Reducer: Emiting "+key+" "+outNode.getNodeInfo());
+        System.out.println("Reducer: Emiting "+key+" "+ outWikipediaNode.getNodeInfo());
 
-        context.write(key, new Text(outNode.getNodeInfo()));
+        context.write(key, new Text(outWikipediaNode.getNodeInfo()));
 
 
     }

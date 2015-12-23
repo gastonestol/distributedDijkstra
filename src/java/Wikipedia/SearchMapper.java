@@ -32,25 +32,24 @@ import java.io.IOException;
 public class SearchMapper extends Mapper<Object, Text, Text, Text> {
 
     //the parameters are the types of the input key, input value and the Context object through which the Mapper communicates with the Hadoop framework
-    public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+    public void map(Object key, Text value, Context context, WikipediaNode inWikipediaNode) throws IOException, InterruptedException {
 
-        Node node = new Node(value.toString());
 
-        if(node.getId().equals(context.getConfiguration().get("source").trim())){
-            node.setDistance(0);
+        if(inWikipediaNode.getId().equals(context.getConfiguration().get("source").trim())){
+            inWikipediaNode.setDistance(0);
         }
-        System.out.println("Mapper: Emiting "+node.getId()+" "+node.getNodeInfo());
+        System.out.println("Mapper: Emiting "+ inWikipediaNode.getId()+" "+ inWikipediaNode.getNodeInfo());
 
-        context.write(new Text(node.getId()),new Text( node.getNodeInfo()));
-        for(String edge : node.getEdges()){
-            Node adjacentNode = new Node();
-            adjacentNode.setId(edge);
-            adjacentNode.setDistance(node.getDistance()+1);
-            System.out.println("Mapper: Emiting " + adjacentNode + " " + String.valueOf(adjacentNode.getDistance()));
-            if(node.getDistance() == Integer.MAX_VALUE){
-                context.write(new Text(adjacentNode.getId()),new Text("Integer.MAX_VALUE"));
+        context.write(new Text(inWikipediaNode.getId()),new Text( inWikipediaNode.getNodeInfo()));
+        for(String edge : inWikipediaNode.getEdges()){
+            WikipediaNode adjacentWikipediaNode = new WikipediaNode();
+            adjacentWikipediaNode.setId(edge);
+            adjacentWikipediaNode.setDistance(inWikipediaNode.getDistance()+1);
+            System.out.println("Mapper: Emiting " + adjacentWikipediaNode + " " + String.valueOf(adjacentWikipediaNode.getDistance()));
+            if(inWikipediaNode.getDistance() == Integer.MAX_VALUE){
+                context.write(new Text(adjacentWikipediaNode.getId()),new Text("Integer.MAX_VALUE"));
             }else{
-                context.write(new Text(adjacentNode.getId()),new Text(String.valueOf(adjacentNode.getDistance())));
+                context.write(new Text(adjacentWikipediaNode.getId()),new Text(String.valueOf(adjacentWikipediaNode.getDistance())));
             }
         }
 
