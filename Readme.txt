@@ -34,4 +34,4 @@ No name node starting
   RUN:
   $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gestol/simplegraph.txt 1 /user/gestol/ssspresult.txt 2
 
-  $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gestol/ssspinput 1 /user/gestol/ssspoutput 2
+  $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gaston/ssspinput 1 /user/gaston/ssspoutput 2

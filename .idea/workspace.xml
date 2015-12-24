@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c96bc7f9-6e79-4f33-9791-8a4f078bae18" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/Node.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/program.jar" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/java/Wikipedia/Node.java" afterPath="$PROJECT_DIR$/src/java/Wikipedia/WikipediaNode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob$1.class" afterPath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob$MoreIterations.class" afterPath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob$MoreIterations.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob$SearchMapperSSSP.class" afterPath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob$SearchMapperSSSP.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob$SearchReducerSSSP.class" afterPath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob$SearchReducerSSSP.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob.class" afterPath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SSSPJob.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SearchMapper.class" afterPath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SearchMapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SearchReducer.class" afterPath="$PROJECT_DIR$/out/production/distributedDijkstra/Wikipedia/SearchReducer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Readme.txt" afterPath="$PROJECT_DIR$/Readme.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/Wikipedia/SSSPJob.java" afterPath="$PROJECT_DIR$/src/java/Wikipedia/SSSPJob.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/Wikipedia/SearchMapper.java" afterPath="$PROJECT_DIR$/src/java/Wikipedia/SearchMapper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/java/Wikipedia/SearchReducer.java" afterPath="$PROJECT_DIR$/src/java/Wikipedia/SearchReducer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="distributedDijkstra.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,8 +34,8 @@
       <file leaf-file-name="SSSPJob.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/SSSPJob.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.483871" vertical-offset="2165" max-vertical-offset="3456">
-              <caret line="140" column="22" selection-start-line="140" selection-start-column="21" selection-end-line="140" selection-end-column="22" />
+            <state vertical-scroll-proportion="-11.193548" vertical-offset="1255" max-vertical-offset="3546">
+              <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -58,43 +46,10 @@
       <file leaf-file-name="SearchReducer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/SearchReducer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1116">
-              <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="505" max-vertical-offset="1278">
+              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SearchReducer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/HadoopGTK/SearchReducer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="1242">
-              <caret line="38" column="51" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WikipediaNode.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/WikipediaNode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2082" max-vertical-offset="2736">
-              <caret line="93" column="17" selection-start-line="93" selection-start-column="11" selection-end-line="93" selection-end-column="17" />
-              <folding>
-                <element signature="e#3760#3761#0" expanded="true" />
-                <element signature="e#3790#3791#0" expanded="true" />
-                <element signature="e#3826#3827#0" expanded="true" />
-                <element signature="e#3862#3863#0" expanded="true" />
-                <element signature="e#3898#3899#0" expanded="true" />
-                <element signature="e#3926#3927#0" expanded="true" />
-                <element signature="e#3975#3976#0" expanded="true" />
-                <element signature="e#4015#4016#0" expanded="true" />
-                <element signature="e#4053#4054#0" expanded="true" />
-                <element signature="e#4086#4087#0" expanded="true" />
-                <element signature="e#4200#4201#0" expanded="true" />
-                <element signature="e#4234#4235#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -120,13 +75,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/SearchMapper.java">
+      <file leaf-file-name="Readme.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Readme.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="1206">
-              <caret line="51" column="68" selection-start-line="51" selection-start-column="68" selection-end-line="51" selection-end-column="68" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="325" max-vertical-offset="774">
+              <caret line="36" column="160" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="160" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WikipediaNode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/WikipediaNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="810" max-vertical-offset="2736">
+              <caret line="56" column="52" selection-start-line="56" selection-start-column="52" selection-end-line="56" selection-end-column="52" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3760#3761#0" expanded="true" />
+                <element signature="e#3790#3791#0" expanded="true" />
+                <element signature="e#3826#3827#0" expanded="true" />
+                <element signature="e#3862#3863#0" expanded="true" />
+                <element signature="e#3898#3899#0" expanded="true" />
+                <element signature="e#3926#3927#0" expanded="true" />
+                <element signature="e#3975#3976#0" expanded="true" />
+                <element signature="e#4015#4016#0" expanded="true" />
+                <element signature="e#4053#4054#0" expanded="true" />
+                <element signature="e#4086#4087#0" expanded="true" />
+                <element signature="e#4200#4201#0" expanded="true" />
+                <element signature="e#4234#4235#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -135,28 +111,8 @@
       <file leaf-file-name="Node.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/java/Pokec/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1741" max-vertical-offset="2700">
+            <state vertical-scroll-proportion="0.0" vertical-offset="283" max-vertical-offset="2700">
               <caret line="102" column="0" selection-start-line="94" selection-start-column="7" selection-end-line="102" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExampleBaseJob.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/ExampleBaseJob.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="278" max-vertical-offset="1116">
-              <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SearchMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/java/Pokec/SearchMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="846" max-vertical-offset="1350">
-              <caret line="54" column="60" selection-start-line="54" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -183,14 +139,14 @@
         <option value="$PROJECT_DIR$/src/java/BFS/Dijkstra.java" />
         <option value="$PROJECT_DIR$/src/java/Wikipedia/FormatterMapper.java" />
         <option value="$PROJECT_DIR$/src/java/Wikipedia/FormatterReducer.java" />
-        <option value="$PROJECT_DIR$/Readme.txt" />
         <option value="$PROJECT_DIR$/sampleFiles/simple_graph" />
         <option value="$PROJECT_DIR$/src/java/Wikipedia/Node.java" />
-        <option value="$PROJECT_DIR$/src/java/Wikipedia/SSSPJob.java" />
         <option value="$PROJECT_DIR$/src/java/Wikipedia/SearchMapper.java" />
-        <option value="$PROJECT_DIR$/src/java/Wikipedia/SearchReducer.java" />
-        <option value="$PROJECT_DIR$/src/java/Wikipedia/WikipediaNode.java" />
         <option value="$PROJECT_DIR$/src/java/Wikipedia/ExampleBaseJob.java" />
+        <option value="$PROJECT_DIR$/src/java/Wikipedia/WikipediaNode.java" />
+        <option value="$PROJECT_DIR$/Readme.txt" />
+        <option value="$PROJECT_DIR$/src/java/Wikipedia/SSSPJob.java" />
+        <option value="$PROJECT_DIR$/src/java/Wikipedia/SearchReducer.java" />
       </list>
     </option>
   </component>
@@ -807,12 +763,12 @@
       <workItem from="1450701273809" duration="12495000" />
       <workItem from="1450810955258" duration="8000" />
       <workItem from="1450813340023" duration="1303000" />
-      <workItem from="1450823685005" duration="6857000" />
+      <workItem from="1450823685005" duration="15280000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44650000" />
+    <option name="totallyTimeSpent" value="53073000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-28" width="1366" height="796" extended-state="6" />
@@ -1230,37 +1186,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Readme.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <caret line="36" column="2" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="160" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/Pokec/SearchReducer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.02895323" vertical-offset="391" max-vertical-offset="1260">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/Pokec/SSSPJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1729" max-vertical-offset="4338">
-          <caret line="132" column="33" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/Pokec/SearchMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="630" max-vertical-offset="1350">
-          <caret line="54" column="60" selection-start-line="54" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/HadoopGTK/SearchReducer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="361" max-vertical-offset="1242">
@@ -1285,34 +1210,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/Pokec/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1525" max-vertical-offset="2700">
-          <caret line="102" column="0" selection-start-line="94" selection-start-column="7" selection-end-line="102" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/SSSPJob.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.483871" vertical-offset="2165" max-vertical-offset="3456">
-          <caret line="140" column="22" selection-start-line="140" selection-start-column="21" selection-end-line="140" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/SearchReducer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1116">
-          <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/SearchMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="1206">
@@ -1323,10 +1220,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/ExampleBaseJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="278" max-vertical-offset="1116">
+          <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/Pokec/SearchReducer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="445" max-vertical-offset="1260">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/Pokec/SearchMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="469" max-vertical-offset="1350">
+          <caret line="40" column="51" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/Pokec/SSSPJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1729" max-vertical-offset="4338">
+          <caret line="132" column="33" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/Pokec/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1525" max-vertical-offset="2700">
+          <caret line="102" column="0" selection-start-line="94" selection-start-column="7" selection-end-line="102" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="325" max-vertical-offset="774">
+          <caret line="36" column="160" selection-start-line="36" selection-start-column="2" selection-end-line="36" selection-end-column="160" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/SSSPJob.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.193548" vertical-offset="1255" max-vertical-offset="3546">
+          <caret line="89" column="21" selection-start-line="89" selection-start-column="21" selection-end-line="89" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/WikipediaNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2082" max-vertical-offset="2736">
-          <caret line="93" column="17" selection-start-line="93" selection-start-column="11" selection-end-line="93" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="823" max-vertical-offset="2736">
+          <caret line="56" column="52" selection-start-line="56" selection-start-column="52" selection-end-line="56" selection-end-column="52" />
           <folding>
             <element signature="e#3760#3761#0" expanded="true" />
             <element signature="e#3790#3791#0" expanded="true" />
@@ -1344,11 +1299,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/ExampleBaseJob.java">
+    <entry file="file://$PROJECT_DIR$/src/java/Wikipedia/SearchReducer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="278" max-vertical-offset="1116">
-          <caret line="42" column="37" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="505" max-vertical-offset="1278">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1362,7 +1319,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/out/production/distributedDijkstra/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="462">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="439">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>

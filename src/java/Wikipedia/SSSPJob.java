@@ -54,6 +54,11 @@ public class SSSPJob extends ExampleBaseJob {
         public void map(Object key, Text value, Context context)
                 throws IOException, InterruptedException {
             WikipediaNode inWikipediaNode = new WikipediaNode(value.toString());
+            System.out.println("processing node id: "+inWikipediaNode.getId()+ " source "+context.getConfiguration().get("source")+ "equals: "+inWikipediaNode.getId().trim().equals(context.getConfiguration().get("source")));
+            if(inWikipediaNode.getId().trim().equals(context.getConfiguration().get("source"))){
+
+                inWikipediaNode.setDistance(0);
+            }
             //calls the map method of the super class SearchMapper
             super.map(key, value, context, inWikipediaNode);
 
@@ -137,7 +142,7 @@ public class SSSPJob extends ExampleBaseJob {
         while(iterationCount < diameter){
 
             job = getJobSsspConfiguration(); // get the job configuration
-            job.getConfiguration().set("source", sourceNode);
+            job.getConfiguration().set("source", sourceNode.trim());
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(Text.class);
 

@@ -31,17 +31,24 @@ public class SearchReducer extends Reducer<Text, Text, Text, Text> {
 
         Integer minimunDistance = Integer.MAX_VALUE;
         outWikipediaNode.setId(key.toString());
-        for(Text value : values){
+        for(Text value : values) {
 
-            if(WikipediaNode.isNode(value.toString()))
+            if (WikipediaNode.isNode(value.toString())) {
                 outWikipediaNode = new WikipediaNode(value.toString());
-            else{
-                if(value.toString().equals("Integer.MAX_VALUE"))
-                    minimunDistance = Integer.MAX_VALUE;
-                else if( Integer.valueOf(value.toString()) < minimunDistance)
-                    minimunDistance = Integer.valueOf(value.toString());
+                if(minimunDistance > outWikipediaNode.getDistance())
+                    minimunDistance = outWikipediaNode.getDistance();
+                System.out.println("Is node " + key + " value: " +value.toString()+" info: "+ outWikipediaNode.getNodeInfo());
             }
+            else{
+                System.out.println("node " + key + " distance value " + value.toString());
 
+
+                if(!value.toString().equals("Integer.MAX_VALUE") && Integer.valueOf(value.toString()) < minimunDistance)
+                    minimunDistance = Integer.valueOf(value.toString());
+
+                System.out.println("node " + key + "minimunDistance " + minimunDistance);
+            }
+            System.out.println("node " + key + "current minumun distance " + minimunDistance);
         }
         outWikipediaNode.setDistance(minimunDistance);
 
