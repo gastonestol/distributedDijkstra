@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Input format node_from<tab>node_to
  */
-public class FormatterMapper extends Mapper<Object, Text, Text, IntWritable> {
+public class FormatterMapper extends Mapper<Object, Text, Text, Text> {
 
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
@@ -22,7 +22,7 @@ public class FormatterMapper extends Mapper<Object, Text, Text, IntWritable> {
         //Node node = new Node(value.toString());
         System.out.println("writing key: "+nodes[0]+" value: "+nodes[1]);
 
-        context.write(new Text(nodes[0]), new IntWritable(Integer.valueOf(nodes[1])));
+        context.write(new Text(nodes[0]), new Text(nodes[1]));
 
     }
 

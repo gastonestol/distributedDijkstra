@@ -30,8 +30,13 @@ No name node starting
   COMPILE
   $HADOOP_HOME/bin/hadoop com.sun.tools.javac.Main    $DIJSKTRA_HOME/src/java/Pokec/*.java
   CREATE JAR:
-  jar cfm program.jar META-INF/MANIFEST.MF  Pokec/*.class
+  jar cfm program.jar META-INF/MANIFEST.MF  */*.class
   RUN:
   $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gestol/simplegraph.txt 1 /user/gestol/ssspresult.txt 2
 
   $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gaston/ssspinput 1 /user/gaston/ssspoutput 2
+
+
+ $HADOOP_PREFIX/bin/hadoop jar program.jar Wikipedia.SSSPJob /user/ubuntu/simple_graph 1 /user/ubuntu/output3 2
+
+ Wikipedia.SSSPJob /user/gestol/wikipedia 1 /user/gaston/wikipediaoutput 10

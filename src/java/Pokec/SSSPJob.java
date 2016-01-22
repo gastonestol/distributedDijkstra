@@ -1,12 +1,11 @@
 package Pokec;
 
 
+
+import Commons.*;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -15,6 +14,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.ToolRunner;
 
 import java.io.IOException;
+import java.util.Date;
 
 
 /**
@@ -34,56 +34,10 @@ import java.io.IOException;
 public class SSSPJob extends ExampleBaseJob {
 
 
-
-
-    // method to set the configuration for the job and the mapper and the reducer classes
-    private Job getJobFormatterConf() throws Exception {
-
-        JobInfo jobInfo = new JobInfo() {
-            @Override
-            public Class<? extends Reducer> getCombinerClass() {
-                return null;
-            }
-
-            @Override
-            public Class<?> getJarByClass() {
-                return SSSPJob.class;
-            }
-
-            @Override
-            public Class<? extends Mapper> getMapperClass() {
-                return FormatterMapper.class;
-            }
-
-            @Override
-            public Class<?> getOutputKeyClass() {
-                return Text.class;
-            }
-
-            @Override
-            public Class<?> getOutputValueClass() {
-                return Text.class;
-            }
-
-            @Override
-            public Class<? extends Reducer> getReducerClass() {
-                return FormatterReducer.class;
-            }
-        };
-
-        return setupJob("formatterJob", jobInfo);
-
-
-    }
-
-
-
-
-    //counter to determine the number of iterations or if more iterations are required to execute the map and reduce functions
-
     static enum MoreIterations {
         numberOfIterations
     }
+
 
     /**
      *
@@ -101,10 +55,17 @@ public class SSSPJob extends ExampleBaseJob {
 
         public void map(Object key, Text value, Context context)
                 throws IOException, InterruptedException {
+            if(Node.isNode(value.toString())){
+                Node inNode = new Node(value.toString());
+                //System.out.println("processing node id: "+inNode.getId()+ " source "+context.getConfiguration().get("source")+ "equals: "+inNode.getId().trim().equals(context.getConfiguration().get("source")));
+                if(inNode.getId().trim().equals(context.getConfiguration().get("source"))){
 
-            Node inNode = new Node(value.toString());
-            //calls the map method of the super class SearchMapper
-            super.map(key, value, context, inNode);
+                    inNode.setDistance(0);
+                }
+                //calls the map method of the super class SearchMapper
+                super.map(key, value, context, inNode);
+            }
+
 
         }
     }
@@ -129,57 +90,58 @@ public class SSSPJob extends ExampleBaseJob {
         public void reduce(Text key, Iterable<Text> values, Context context)
                 throws IOException, InterruptedException {
 
-            //create a new out node and set its values
             Node outNode = new Node();
-
             //call the reduce method of SearchReducer class
-            outNode = super.reduce(key, values, context, outNode);
+            super.reduce(key, values, context, outNode);
 
-            //if the color of the node is gray, the execution has to continue, this is done by incrementing the counter
-            if (outNode.getColor() == Node.Color.GRAY)
-                context.getCounter(MoreIterations.numberOfIterations).increment(1L);
+
         }
     }
 
-    private long ssspJob( String auxiliaryFile, String outputFile) throws Exception{
-
-        int iterationCount = 0; // counter to set the ordinal number of the intermediate outputs
-
-        Job job;
-
-        long terminationValue =1;
+    private Job getFormatterJobConfigutation() throws Exception {
 
 
-        // while there are more gray nodes to process
 
-        while(terminationValue >0){
+        JobInfo jobInfo = new JobInfo() {
 
-            job = getJobSsspConfiguration(); // get the job configuration
-            String input, output;
+            @Override
+            public Class<? extends Reducer> getReducerClass() {
 
-            //setting the input file and output file for each iteration
-            //during the first time the user-specified file will be the input whereas for the subsequent iterations
-            // the output of the previous iteration will be the input
-            if (iterationCount == 0) // for the first iteration the input will be the first input argument
-                input = auxiliaryFile;
-            else
-                // for the remaining iterations, the input will be the output of the previous iteration
-                input = outputFile + iterationCount;
+                return FormatterReducer.class;
+            }
 
-            output = outputFile + (iterationCount + 1); // setting the output file
+            @Override
+            public Class<?> getOutputValueClass() {
 
-            FileInputFormat.setInputPaths(job, new Path(input)); // setting the input files for the job
-            FileOutputFormat.setOutputPath(job, new Path(output)); // setting the output files for the job
+                return Text.class;
+            }
 
-            job.waitForCompletion(true); // wait for the job to complete
+            @Override
+            public Class<?> getOutputKeyClass() {
 
-            Counters jobCntrs = job.getCounters();
-            terminationValue = jobCntrs.findCounter(MoreIterations.numberOfIterations).getValue();//if the counter's value is incremented in the reducer(s), then there are more GRAY nodes to process implying that the iteration has to be continued.
-            iterationCount++;
+                return Text.class;
+            }
 
-        }
+            @Override
+            public Class<? extends Mapper> getMapperClass() {
 
-        return 0;
+                return FormatterMapper.class;
+            }
+
+            @Override
+            public Class<?> getJarByClass() {
+                return SSSPJob.class;
+            }
+
+            @Override
+            public Class<? extends Reducer> getCombinerClass() {
+                return null;
+            }
+        };
+
+        return setupJob("formatterjob", jobInfo);
+
+
     }
 
     private Job getJobSsspConfiguration() throws Exception {
@@ -218,18 +180,67 @@ public class SSSPJob extends ExampleBaseJob {
         return setupJob("ssspjob", jobInfo);
     }
 
-    public long formatterJob( String inputPath, String outputPath,String sourceNode)
+    public long ssspJob( String inputPath, String outputPath,String sourceNode,int diameter)
             throws Exception {
 
-        Job job = getJobFormatterConf();
-        job.getConfiguration().set("source", sourceNode);
+        int iterationCount = 0; // counter to set the ordinal number of the intermediate outputs
+
+        Date start = new Date();
+        long totalTime = 0;
+        Job job;
+        // while there are more gray nodes to process
+
+        while(iterationCount < diameter){
+
+            Date iterStart = new Date();
+            job = getJobSsspConfiguration(); // get the job configuration
+            job.getConfiguration().set("source", sourceNode.trim());
+            job.setMapOutputKeyClass(Text.class);
+            job.setMapOutputValueClass(Text.class);
+
+            String input, output;
+
+            if (iterationCount == 0){
+                FileInputFormat.setInputPaths(job, new Path(inputPath)); // setting the input files for the job
+                FileOutputFormat.setOutputPath(job, new Path(outputPath+"_"+iterationCount)); // setting the output files for the job
+
+            }else{
+                FileInputFormat.setInputPaths(job, new Path(outputPath+"_"+(iterationCount-1))); // setting the input files for the job
+                FileOutputFormat.setOutputPath(job, new Path(outputPath+"_"+iterationCount)); // setting the output files for the job
+
+            }
+
+            job.waitForCompletion(true); // wait for the job to complete
+            Date iterEnd = new Date();
+
+            System.out.println("Job number "+iterationCount+" length in ms: "+(iterEnd.getTime()-iterStart.getTime()));
+
+
+            iterationCount++;
+        }
+        Date end = new Date();
+
+        System.out.println("Complete Job length in ms: "+(end.getTime()-start.getTime()));
+        return 0;
+
+    }
+    public void formatterJob(String inputPath, String outputPath)   throws Exception {
+        Job job = getFormatterJobConfigutation();
         job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(IntWritable.class);
+        job.setMapOutputValueClass(Text.class);
         FileInputFormat.setInputPaths(job, new Path(inputPath)); // setting the input files for the job
         FileOutputFormat.setOutputPath(job, new Path(outputPath)); // setting the output files for the job
+
+        System.out.println("Starting Formatter Job");
+
+        Date start = new Date();
+
         job.waitForCompletion(true); // wait for the job to complete
 
-        return 0;
+        Date end = new Date();
+
+        System.out.println("Formatter Job length in ms: "+(end.getTime()-start.getTime()));
+
 
     }
 
@@ -237,21 +248,18 @@ public class SSSPJob extends ExampleBaseJob {
 
     public int run(String[] args) throws Exception {
 
-        long formattingPhase = 0, ssspPhrase = 0;
 
 
+        int diameter;
+        try{
+            diameter = Integer.valueOf(args[3]);
 
-        String auxiliaryFile = new Path(new Path(args[0]).getParent().getName()+"/formattedFile").getName();
-        FileSystem fs = FileSystem.get(getConf());
-        if(fs.exists(new Path(auxiliaryFile)))
-            fs.delete(new Path(auxiliaryFile), true);
-
-        formattingPhase = formatterJob(args[0],auxiliaryFile,args[1]);
-        ssspPhrase = ssspJob(auxiliaryFile, args[2]);
-
-
-
-
+        }catch (Exception e){
+            diameter = 7;
+        }
+        String temporalFile = "formatted_"+args[0];
+        formatterJob(args[0],temporalFile);
+        ssspJob(temporalFile, args[2],args[1],diameter);
 
 
         return 0;
@@ -262,11 +270,16 @@ public class SSSPJob extends ExampleBaseJob {
 
     public static void main (String[] args) throws Exception {
 
-        int res = ToolRunner.run(new Configuration(), new SSSPJob(), args);
-        if(args.length != 3){
-            System.err.println("Usage: <input dir> <source node> <output di>");
+
+
+        if(args.length < 3) {
+            System.err.println("Usage: <input dir> <source node> <output di> <diameter>");
+        }else{
+            System.out.println("Usage: <input dir> <source node> <output di> <diameter>");
+            int res = ToolRunner.run(new Configuration(), new SSSPJob(), args);
+            System.exit(res);
+
         }
-        System.exit(res);
     }
 
 

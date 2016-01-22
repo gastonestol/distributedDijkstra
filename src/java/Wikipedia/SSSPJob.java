@@ -13,7 +13,8 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.ToolRunner;
 
 import java.io.IOException;
-
+import java.util.Date;
+import Commons.*;
 
 /**
  *
@@ -53,14 +54,17 @@ public class SSSPJob extends ExampleBaseJob {
 
         public void map(Object key, Text value, Context context)
                 throws IOException, InterruptedException {
-            WikipediaNode inWikipediaNode = new WikipediaNode(value.toString());
-            System.out.println("processing node id: "+inWikipediaNode.getId()+ " source "+context.getConfiguration().get("source")+ "equals: "+inWikipediaNode.getId().trim().equals(context.getConfiguration().get("source")));
-            if(inWikipediaNode.getId().trim().equals(context.getConfiguration().get("source"))){
+            if(Node.isNode(value.toString())){
+                Node inNode = new Node(value.toString());
+                //System.out.println("processing node id: "+inNode.getId()+ " source "+context.getConfiguration().get("source")+ "equals: "+inNode.getId().trim().equals(context.getConfiguration().get("source")));
+                if(inNode.getId().trim().equals(context.getConfiguration().get("source"))){
 
-                inWikipediaNode.setDistance(0);
+                    inNode.setDistance(0);
+                }
+                //calls the map method of the super class SearchMapper
+                super.map(key, value, context, inNode);
             }
-            //calls the map method of the super class SearchMapper
-            super.map(key, value, context, inWikipediaNode);
+
 
         }
     }
@@ -85,9 +89,9 @@ public class SSSPJob extends ExampleBaseJob {
         public void reduce(Text key, Iterable<Text> values, Context context)
                 throws IOException, InterruptedException {
 
-            WikipediaNode outWikipediaNode = new WikipediaNode();
+            Node outNode = new Node();
             //call the reduce method of SearchReducer class
-            super.reduce(key, values, context, outWikipediaNode);
+            super.reduce(key, values, context, outNode);
 
 
         }
@@ -136,11 +140,14 @@ public class SSSPJob extends ExampleBaseJob {
 
         int iterationCount = 0; // counter to set the ordinal number of the intermediate outputs
 
+        Date start = new Date();
+        long totalTime = 0;
         Job job;
         // while there are more gray nodes to process
 
         while(iterationCount < diameter){
 
+            Date iterStart = new Date();
             job = getJobSsspConfiguration(); // get the job configuration
             job.getConfiguration().set("source", sourceNode.trim());
             job.setMapOutputKeyClass(Text.class);
@@ -157,10 +164,18 @@ public class SSSPJob extends ExampleBaseJob {
                 FileOutputFormat.setOutputPath(job, new Path(outputPath+"_"+iterationCount)); // setting the output files for the job
 
             }
+
             job.waitForCompletion(true); // wait for the job to complete
+            Date iterEnd = new Date();
+
+            System.out.println("Job number "+iterationCount+" length in ms: "+(iterEnd.getTime()-iterStart.getTime()));
+
 
             iterationCount++;
         }
+        Date end = new Date();
+
+        System.out.println("Complete Job length in ms: "+(end.getTime()-start.getTime()));
         return 0;
 
     }
@@ -188,6 +203,7 @@ public class SSSPJob extends ExampleBaseJob {
 
 
     public static void main (String[] args) throws Exception {
+
 
 
         if(args.length < 3) {
