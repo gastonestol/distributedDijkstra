@@ -31,6 +31,7 @@ No name node starting
   $HADOOP_HOME/bin/hadoop com.sun.tools.javac.Main    $DIJSKTRA_HOME/src/java/Pokec/*.java
   CREATE JAR:
   jar cfm program.jar META-INF/MANIFEST.MF  */*.class
+  jar cfm program.jar $DIJSKTRA_HOME/out/production/distributedDijkstra/META-INF/MANIFEST.MF $DIJSKTRA_HOME/out/production/distributedDijkstra/*/*.class
   RUN:
   $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gestol/simplegraph.txt 1 /user/gestol/ssspresult.txt 2
 
@@ -40,3 +41,9 @@ No name node starting
  $HADOOP_PREFIX/bin/hadoop jar program.jar Wikipedia.SSSPJob /user/ubuntu/simple_graph 1 /user/ubuntu/output3 2
 
  Wikipedia.SSSPJob /user/gestol/wikipedia 1 /user/gaston/wikipediaoutput 10
+
+
+  $HADOOP_HOME/bin/hadoop  jar program.jar Wikipedia.SSSPJob /user/gestol/sampleFiles/simple_graph 1 /user/gestol/simple_graph_res
+
+
+bin/hadoop jar ~/Tesis/program.jar Wikipedia.SSSPJob /user/alumno/sampleFiles/simple_graph 1 /user/alumno/simple_graph_res
