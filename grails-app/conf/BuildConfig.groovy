@@ -53,6 +53,8 @@ grails.project.dependency.resolution = {
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
          compile 'org.apache.hadoop:hadoop-mapreduce-client-core:2.6.0'
          compile 'org.apache.hadoop:hadoop-common:2.6.0'
+        compile 'org.apache.spark:spark-core_2.10:1.6.0'
+        compile 'org.apache.spark:spark-graphx_2.10:1.6.0'
     }
 
     plugins {

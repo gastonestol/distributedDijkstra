@@ -27,6 +27,13 @@ public class Node {
 
 
     }
+    public static enum Color {
+        WHITE, GRAY, BLACK
+    };
+
+    static enum MoreIterations {
+        numberOfIterations
+    }
 
     // three possible colors a node can have (to keep track of the visiting status of the nodes during graph search)
 
@@ -35,7 +42,8 @@ public class Node {
     private String id; // id of the node
     private int distance; // distance of the node from the source
     private List<String> edges = new ArrayList<String>(); // list of edges
-
+    private Color color = Color.WHITE;
+    private String parent; // parent/predecessor of the node : The parent of the source is marked "source" to leave it unchanged
     public Node() {
 
         distance = Integer.MAX_VALUE;

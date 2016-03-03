@@ -33,7 +33,7 @@ public class FormatterReducer extends Reducer<Text, Text, Text, Text> {
         for (Text val : values){
             node.setEdge(val.toString());
         }
-        System.out.println("Emiting key: "+key.toString()+" value: "+node.getNodeInfo());
+        //System.out.println("Emiting key: "+key.toString()+" value: "+node.getNodeInfo());
         context.write(key,new Text(node.getNodeInfo()));
     }
 
