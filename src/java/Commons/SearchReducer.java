@@ -1,10 +1,8 @@
 package Commons;
-
+import java.io.IOException;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
-
-import java.io.IOException;
 
 
 /**
@@ -13,9 +11,9 @@ import java.io.IOException;
  *         algorithm. 
  *         Make a new node which combines all information for this single node id that is for each key. The new node should have the full list of edges, the minimum distance, the darkest Color, and the parent/predecessor node 
  *
- * Input format <key,value> : <nodeId, list_of_adjacent_nodes|distance_from_the_source>
+ * Input format <key,value> : <nodeId, list_of_adjacent_nodes|distance_from_the_source|color|parent_node>
  *
- * Output format <key,value> : <nodeId, (updated) list_of_adjacent_nodes|distance_from_the_source>
+ * Output format <key,value> : <nodeId, (updated) list_of_adjacent_nodes|distance_from_the_source|color|parent_node>
  *
  *
  */
@@ -27,40 +25,43 @@ public class SearchReducer extends Reducer<Text, Text, Text, Text> {
 
     //the parameters are the types of the input key, the values associated with the key, the Context object through which the Reducer communicates with the Hadoop framework and the node whose information has to be output
     //the return type is a Node
-    public void reduce(Text key, Iterable<Text> values, Context context, Node outNode) throws IOException, InterruptedException {
+    public Node reduce(Text key, Iterable<Text> values, Context context, Node outNode)
+            throws IOException, InterruptedException {
 
-        Integer minimunDistance = Integer.MAX_VALUE;
-        for(Text value : values) {
+        //set the node id as the key
+        outNode.setId(key.toString());
 
-            if (Node.isNode(value.toString())) {
-               // System.out.println("Is node " + key + " value: " +value.toString());
+        //since the values are of the type Iterable, iterate through the values associated with the key
+        //for all the values corresponding to a particular node id
 
-                outNode = new Node(value.toString());
-                outNode.setId(key.toString());
-                if(minimunDistance > outNode.getDistance())
-                    minimunDistance = outNode.getDistance();
-                //System.out.println("Is node " + key + " value: " +value.toString()+" info: "+ outNode.getNodeInfo());
+        for (Text value : values) {
+
+            Node inNode = new Node(key.toString() + value.toString());
+
+            // One (and only one) copy of the node will be the fully expanded version, which includes the list of adjacent nodes, in other cases, the mapper emits the ndoes with no adjacent nodes
+            //In other words, when there are multiple values associated with the key (node Id), only one will
+            if (inNode.getEdges().size() > 0) {
+                outNode.setEdges(inNode.getEdges());
             }
-            else{
-                //System.out.println("node " + key + " distance value " + value.toString());
 
+            // Save the minimum distance
+            if (inNode.getDistance() < outNode.getDistance()) {
+                outNode.setDistance(inNode.getDistance());
 
-                if (!value.toString().trim().equals("Integer.MAX_VALUE") && Integer.valueOf(value.toString().trim()) < minimunDistance)
-                    minimunDistance = Integer.valueOf(value.toString().trim());
-
-               //System.out.println("node " + key + " minimunDistance " + minimunDistance);
+                //if the distance gets updated then the predecessor node that was responsible for this distance will be the parent node
+                outNode.setParent(inNode.getParent());
             }
-            //System.out.println("node " + key + " current minumun distance " + minimunDistance);
+
+            // Save the darkest color
+            if (inNode.getColor().ordinal() > outNode.getColor().ordinal()) {
+                outNode.setColor(inNode.getColor());
+            }
+
         }
-        outNode.setDistance(minimunDistance);
-
-
         //emit the key, value pair where the key is the node id and the value is the node's information
-
-        //System.out.println("Reducer: Emiting "+key+" "+ outNode.getNodeInfo());
-
         context.write(key, new Text(outNode.getNodeInfo()));
 
+        return outNode;
 
     }
 }

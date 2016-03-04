@@ -31,9 +31,15 @@ public class Node {
         WHITE, GRAY, BLACK
     };
 
-    static enum MoreIterations {
-        numberOfIterations
-    }
+    static private int keyAndEdgesPosition = 0;
+    static private int distancePosition = 1;
+    static private int colorPosition = 2;
+    static private int parentPosition = 3;
+    static private int keyPosition = 0;
+    static private int edgesPosition = 1;
+    public static String NULL = "null";
+    public static String MAX_VALUE = "Integer.MAX_VALUE";
+    public static String SOURCE = "source";
 
     // three possible colors a node can have (to keep track of the visiting status of the nodes during graph search)
 
@@ -45,12 +51,18 @@ public class Node {
     private Color color = Color.WHITE;
     private String parent; // parent/predecessor of the node : The parent of the source is marked "source" to leave it unchanged
     public Node() {
-
         distance = Integer.MAX_VALUE;
+        color = Color.WHITE;
+        parent = null;
 
     }
+    /**
+     1<tab>2,3|0|GRAY|source
+     2<tab>1,3,4,5|Integer.MAX_VALUE|WHITE|null
 
+     1: 2 3 4 5|distance|colour|parent
 
+    */
     // constructor
     //the parameter nodeInfo  is the line that is passed from the input, this nodeInfo is then split into key, value pair where the key is the node id
     //and the value is the information associated with the node
@@ -63,22 +75,11 @@ public class Node {
 
 
         String []inputLine =  nodeInfo.split("\\|");
-        if(inputLine.length>1){
-            if (inputLine[1].trim().equals("Integer.MAX_VALUE")) {
-                this.distance = Integer.MAX_VALUE;
-            } else {
-                this.distance = Integer.parseInt(inputLine[1].trim());
-            }
-        }
-        else{
-            this.distance = Integer.MAX_VALUE;
-        }
-        String []keyAndEdges = inputLine[0].split(":");
-        String key ="",value ="";
+        String []keyAndEdges = inputLine[keyAndEdgesPosition].split(":");
+        String value ="";
 
         try {
-            key = keyAndEdges[0].trim(); // node id
-            this.id = key; // set the id of the node
+            this.id =  keyAndEdges[keyPosition].trim(); // node id
 
         } catch (Exception e) {
             //System.out.println("inputLine: "+inputLine[0]);
@@ -89,10 +90,9 @@ public class Node {
 
         }
         if(keyAndEdges.length>1){
-            value = keyAndEdges[1]; // the list of adjacent nodes, distance, color, parent
+            value = keyAndEdges[edgesPosition]; // the list of adjacent nodes, distance, color, parent
             String[] tokens = value.split(" "); // split the value into tokens where
             //tokens[0] = list of adjacent nodes, tokens[1]= distance, tokens[2]= color, tokens[3]= parent
-
 
             // setting the edges of the node
             for (String s : tokens) {
@@ -101,6 +101,32 @@ public class Node {
                 }
             }
         }
+        if(inputLine.length>distancePosition){ // Distance
+
+            if (inputLine[distancePosition].trim().equals(MAX_VALUE)) {
+                this.distance = Integer.MAX_VALUE;
+            } else {
+
+                this.distance = Integer.parseInt(inputLine[1].trim());
+            }
+        }
+        else{
+            this.distance = Integer.MAX_VALUE;
+        }
+        if(inputLine.length>colorPosition){ // Color
+            this.color = Color.valueOf(inputLine[colorPosition]);
+        }
+        else{
+            this.color = Color.WHITE;
+        }
+
+        if(inputLine.length>parentPosition){ // Parent
+            this.parent = inputLine[parentPosition].trim();
+        }
+        else{
+            this.parent = NULL;
+        }
+
 
 
     }
@@ -127,8 +153,13 @@ public class Node {
         if (this.distance < Integer.MAX_VALUE) {
             s.append(this.distance);
         } else {
-            s.append("Integer.MAX_VALUE");
+            s.append(MAX_VALUE);
         }
+        s.append("|");
+        s.append(color.toString());
+        s.append("|");
+        s.append(parent);
+
 
         return s.toString();
     }
@@ -160,6 +191,19 @@ public class Node {
     public void setEdges(List<String> edges) {
         this.edges = edges;
     }
+    public Color getColor() {
+        return this.color;
+    }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
+
+    public String getParent() {
+        return parent;
+    }
 
 }

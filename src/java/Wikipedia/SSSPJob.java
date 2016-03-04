@@ -5,6 +5,7 @@ package Wikipedia;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -60,6 +61,8 @@ public class SSSPJob extends ExampleBaseJob {
                 if(inNode.getId().trim().equals(context.getConfiguration().get("source"))){
 
                     inNode.setDistance(0);
+                    inNode.setParent(Node.SOURCE);
+                    inNode.setColor(Node.Color.GRAY);
                 }
                 //calls the map method of the super class SearchMapper
                 super.map(key, value, context, inNode);
@@ -92,7 +95,8 @@ public class SSSPJob extends ExampleBaseJob {
             Node outNode = new Node();
             //call the reduce method of SearchReducer class
             super.reduce(key, values, context, outNode);
-
+            if (outNode.getColor() == Node.Color.GRAY)
+                context.getCounter(MoreIterations.numberOfIterations).increment(1L);
 
         }
     }
@@ -135,17 +139,17 @@ public class SSSPJob extends ExampleBaseJob {
         return setupJob("ssspjob", jobInfo);
     }
 
-    public long ssspJob( String inputPath, String outputPath,String sourceNode,int diameter)
+    public long ssspJob( String inputPath, String outputPath,String sourceNode)
             throws Exception {
 
         int iterationCount = 0; // counter to set the ordinal number of the intermediate outputs
-
+        long terminationValue =1;
         Date start = new Date();
         long totalTime = 0;
         Job job;
         // while there are more gray nodes to process
 
-        while(iterationCount < diameter){
+        while(terminationValue >0){
 
             Date iterStart = new Date();
             job = getJobSsspConfiguration(); // get the job configuration
@@ -168,7 +172,11 @@ public class SSSPJob extends ExampleBaseJob {
             job.waitForCompletion(true); // wait for the job to complete
             Date iterEnd = new Date();
 
-            System.out.println("Job number "+iterationCount+" length in ms: "+(iterEnd.getTime()-iterStart.getTime()));
+            System.out.println("Job number " + iterationCount + " length in ms: " + (iterEnd.getTime() - iterStart.getTime()));
+
+            Counters jobCntrs = job.getCounters();
+            terminationValue = jobCntrs.findCounter(MoreIterations.numberOfIterations).getValue();//if the counter's value is incremented in the reducer(s), then there are more GRAY nodes to process implying that the iteration has to be continued.
+
 
 
             iterationCount++;
@@ -185,15 +193,7 @@ public class SSSPJob extends ExampleBaseJob {
     public int run(String[] args) throws Exception {
 
 
-
-        int diameter;
-        try{
-            diameter = Integer.valueOf(args[3]);
-
-        }catch (Exception e){
-            diameter = 7;
-        }
-        ssspJob(args[0], args[2],args[1],diameter);
+        ssspJob(args[0], args[2],args[1]);
 
 
         return 0;

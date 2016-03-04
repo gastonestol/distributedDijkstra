@@ -38,7 +38,7 @@ No name node starting
   $HADOOP_HOME/bin/hadoop jar $DIJSKTRA_HOME/out/production/distributedDijkstra/program.jar Wikipedia.SSSPJob /user/gaston/ssspinput 1 /user/gaston/ssspoutput 2
 
 
- $HADOOP_PREFIX/bin/hadoop jar program.jar Wikipedia.SSSPJob /user/ubuntu/simple_graph 1 /user/ubuntu/output3 2
+ $HADOOP_HOME/bin/hadoop jar program.jar Wikipedia.SSSPJob /user/gestol/simple_graph 1 /user/gestol/output3
 
  Wikipedia.SSSPJob /user/gestol/wikipedia 1 /user/gaston/wikipediaoutput 10
 

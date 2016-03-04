@@ -1,12 +1,12 @@
 
 
 package Commons;
-
+import java.io.IOException;
+import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.hadoop.mapreduce.Mapper.Context;
 
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Mapper;
-
-import java.io.IOException;
+import org.apache.hadoop.io.LongWritable;
 
 /**
  *
@@ -32,35 +32,39 @@ import java.io.IOException;
 public class SearchMapper extends Mapper<Object, Text, Text, Text> {
 
     //the parameters are the types of the input key, input value and the Context object through which the Mapper communicates with the Hadoop framework
-    public void map(Object key, Text value, Context context, Node inNode) throws IOException, InterruptedException {
+    public void map(Object key, Text value, Context context, Node inNode)
+            throws IOException, InterruptedException {
 
 
-      //  System.out.println("Mapper: Emiting "+ inNode.getId()+" "+ inNode.getNodeInfo());
 
-        context.write(new Text(inNode.getId()),new Text( inNode.getNodeInfo()));
+        // For each GRAY node, emit each of the adjacent nodes as a new node (also GRAY)
+        //if the adjacent node is already processed and colored BLACK, the reducer retains the color BLACK
+        if (inNode.getColor() == Node.Color.GRAY) {
+            for (String neighbor : inNode.getEdges()) { // for all the adjacent nodes of
+                // the gray node
 
-        for(String edge : inNode.getEdges()){
-            Node adjacentNode = new Node();
+                Node adjacentNode = new Node(); // create a new node
 
-            adjacentNode.setId(edge);
+                adjacentNode.setId(neighbor); // set the id of the node
+                adjacentNode.setDistance(inNode.getDistance() + 1); // set the distance of the node, the distance of the adjacentNode is set to be the distance
+                //of its predecessor node+ 1, this is done since we consider a graph of unit edge weights
+                adjacentNode.setColor(Node.Color.GRAY); // set the color of the node to be GRAY
+                adjacentNode.setParent(inNode.getId()); // set the parent of the node, if the adjacentNode is already visited by some other parent node, it is not update in the reducer
+                //this is because the nodes are processed in terms of levels from the source node, i.e all the nodes in the level 1 are processed first, then the nodes in the level 2 and so on.
 
-            adjacentNode.setDistance(inNode.getDistance() + 1);
+                //emit the information about the adjacent node in the form of key-value pair where the key is the node Id and the value is the associated information
+                //for the nodes emitted here, the list of adjacent nodes will be empty in the value part, the reducer will merge this with the original list of adjacent nodes associated with a node
+                context.write(new Text(adjacentNode.getId()), new Text(adjacentNode.getNodeInfo()));
 
-            if(inNode.getDistance() == Integer.MAX_VALUE){
-               // System.out.println("Mapper: Emiting " + adjacentNode.getId() + " Integer.MAX_VALUE");
-
-                context.write(new Text(adjacentNode.getId()), new Text("Integer.MAX_VALUE"));
-            }else{
-             //   System.out.println("Mapper: Emiting " + adjacentNode.getId() + " "+adjacentNode.getDistance());
-
-                context.write(new Text(adjacentNode.getId()),new Text(String.valueOf(adjacentNode.getDistance())));
             }
+            // this node is done, color it black
+            inNode.setColor(Node.Color.BLACK);
         }
 
-
-
-
-
+        // No matter what, emit the input node
+        // If the node came into this method GRAY, it will be output as BLACK
+        //otherwise, the nodes that are already colored BLACK or WHITE are emitted by setting the key as the node Id and the value as the node's information
+        context.write(new Text(inNode.getId()), new Text (inNode.getNodeInfo()));
 
     }
 }
