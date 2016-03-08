@@ -1,3 +1,5 @@
+package sssp
+
 
 
 import org.apache.spark.graphx._
@@ -7,11 +9,12 @@ import org.apache.spark.graphx.util.GraphGenerators
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
-object SimpleApp {
+object SimpleSSSP {
   def main(args: Array[String]) {
-    val logFile = "YOUR_SPARK_HOME/README.md" // Should be some file on your system
+    val logFile = "hdfs://localhost:9000/user/alumno/sparkout/out.txt" // Should be some file on your system
     val conf = new SparkConf().setAppName("Simple Application")
     val sc = new SparkContext(conf)
+    val logData = sc.textFile(logFile, 2).cache()
     val graph = GraphLoader.edgeListFile(sc, "hdfs://localhost:9000/user/gaston/ssspspark", false, 1).mapEdges(e => e.attr.toDouble)
     //GraphGenerators.logNormalGraph(sc, numVertices = 10).mapEdges(e => e.attr.toDouble)
     val sourceId: VertexId = 1 // The ultimate source
