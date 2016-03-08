@@ -45,5 +45,11 @@ No name node starting
 
   $HADOOP_HOME/bin/hadoop  jar program.jar Wikipedia.SSSPJob /user/gestol/sampleFiles/simple_graph 1 /user/gestol/simple_graph_res
 
+  $HADOOP_HOME/bin/hadoop  jar /Users/gestol/Sofware/workspace/sssp/target/sssp-0.0.1-SNAPSHOT.jar Wikipedia.SSSPJob /user/gestol/simple_graph 1 /user/gestol/simple_graph_res
+
+
 
 bin/hadoop jar ~/Tesis/program.jar Wikipedia.SSSPJob /user/alumno/sampleFiles/simple_graph 1 /user/alumno/simple_graph_res
+
+
+
