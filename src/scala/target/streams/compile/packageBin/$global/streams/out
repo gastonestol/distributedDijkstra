@@ -1,4 +1,23 @@
-[0m[[0minfo[0m] [0mPackaging /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/scala_2.10-0.1-SNAPSHOT.jar ...[0m
+[0m[[0minfo[0m] [0mPackaging /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/simplesssp_2.10-1.0.jar ...[0m
 [0m[[0mdebug[0m] [0mInput file mappings:[0m
-[0m[[0mdebug[0m] [0m	[0m
+[0m[[0mdebug[0m] [0m	src/main[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main[0m
+[0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP$.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main/scala/SimpleSSSP$.class[0m
+[0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP$$anonfun$4.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main/scala/SimpleSSSP$$anonfun$4.class[0m
+[0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main/scala/SimpleSSSP$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	src/main/scala[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main/scala[0m
+[0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main/scala/SimpleSSSP$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	src[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src[0m
+[0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main/scala/SimpleSSSP$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP$$anonfun$5.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main/scala/SimpleSSSP$$anonfun$5.class[0m
+[0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/src/scala/target/scala-2.10/classes/src/main/scala/SimpleSSSP.class[0m
 [0m[[0minfo[0m] [0mDone packaging.[0m
