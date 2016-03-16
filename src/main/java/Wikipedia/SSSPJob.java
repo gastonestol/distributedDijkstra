@@ -34,6 +34,8 @@ import main.java.Commons.*;
 public class SSSPJob extends ExampleBaseJob {
 
 
+
+
     static enum MoreIterations {
         numberOfIterations
     }
@@ -139,7 +141,8 @@ public class SSSPJob extends ExampleBaseJob {
         return setupJob("ssspjob", jobInfo);
     }
 
-    public long ssspJob( String inputPath, String outputPath,String sourceNode)
+    @Override
+    public void ssspJob( String inputPath, String outputPath,String sourceNode)
             throws Exception {
 
         int iterationCount = 0; // counter to set the ordinal number of the intermediate outputs
@@ -184,7 +187,6 @@ public class SSSPJob extends ExampleBaseJob {
         Date end = new Date();
 
         System.out.println("Complete Job length in ms: "+(end.getTime()-start.getTime()));
-        return 0;
 
     }
 

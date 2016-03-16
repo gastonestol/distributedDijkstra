@@ -65,13 +65,13 @@ Output is going to be created in HDFS
  
  Input file must folow the format of the mock file "simple_graph"
 
-$HADOOP_HOME/bin/hadoop jar target/SSSP-1.0.jar main.java.Wikipedia.SSSPJob <inputfile> <source node> <outputfile>
+`$HADOOP_HOME/bin/hadoop jar target/SSSP-1.0.jar main.java.Wikipedia.SSSPJob <inputfile> <source node> <outputfile>`
 
 #### Pokec SSSP
 
 Input file must folow the format of the mock file "simple_graph_spark"
 
-$HADOOP_HOME/bin/hadoop jar target/SSSP-1.0.jar main.java.Pokec.SSSPJob <inputfile> <source node> <outputfile>
+`$HADOOP_HOME/bin/hadoop jar target/SSSP-1.0.jar main.java.Pokec.SSSPJob <inputfile> <source node> <outputfile>`
 
 ### Spark ###
 
@@ -80,7 +80,7 @@ Output is the log file
 
 Input file must folow the format of the mock file "simple_graph_spark"
 
-$SPARK_HOME/bin/spark-submit --class "SimpleSSSP"  --master local[4] target/scala-2.10/simplesssp_2.10-1.0.jar
+`$SPARK_HOME/bin/spark-submit --class "SimpleSSSP"  --master local[4] target/scala-2.10/simplesssp_2.10-1.0.jar <inputfile>`
 
 ## Contact
 

@@ -50,6 +50,8 @@ public abstract class ExampleBaseJob extends Configured implements Tool {
         return job;
     }
 
+    public abstract void ssspJob(String inputFile, String outputFile, String sourceNode) throws Exception ;
+
     protected abstract class JobInfo {
         public abstract Class<?> getJarByClass();
         public abstract Class<? extends Mapper> getMapperClass();
