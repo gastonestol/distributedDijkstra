@@ -1,4 +1,4 @@
-package Wikipedia;
+package main.java.Wikipedia;
 
 
 
@@ -15,7 +15,7 @@ import org.apache.hadoop.util.ToolRunner;
 
 import java.io.IOException;
 import java.util.Date;
-import Commons.*;
+import main.java.Commons.*;
 
 /**
  *

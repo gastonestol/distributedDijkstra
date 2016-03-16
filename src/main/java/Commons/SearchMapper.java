@@ -1,6 +1,6 @@
 
 
-package Commons;
+package main.java.Commons;
 import java.io.IOException;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Mapper.Context;

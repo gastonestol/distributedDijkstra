@@ -1,10 +1,10 @@
-package Pokec;
+package main.java.Pokec;
 
 /**
  * Created by gaston on 25/11/15.
  */
 
-import Commons.Node;
+import main.java.Commons.Node;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;

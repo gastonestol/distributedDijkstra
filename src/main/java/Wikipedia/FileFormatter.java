@@ -1,8 +1,6 @@
-package Wikipedia;
+package main.java.Wikipedia;
 
-import Commons.ExampleBaseJob;
-import Commons.Node;
-import Commons.SearchMapper;
+import main.java.Commons.*;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;

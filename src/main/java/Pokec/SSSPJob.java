@@ -1,8 +1,8 @@
-package Pokec;
+package main.java.Pokec;
 
 
 
-import Commons.*;
+import main.java.Commons.*;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;

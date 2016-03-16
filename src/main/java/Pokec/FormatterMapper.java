@@ -1,4 +1,4 @@
-package Pokec;
+package main.java.Pokec;
 
 /**
  * Created by gaston on 25/11/15.

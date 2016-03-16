@@ -1,4 +1,4 @@
-package Commons;
+package main.java.Commons;
 import java.io.IOException;
 
 import org.apache.hadoop.io.Text;
