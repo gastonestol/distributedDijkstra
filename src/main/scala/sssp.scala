@@ -11,7 +11,7 @@ object SimpleSSSP {
     //args(0) = "hdfs://localhost:9000/user/gaston/ssspspark"
     val graph = GraphLoader.edgeListFile(sc, args(0), false, 1).mapEdges(e => e.attr.toDouble)
     //GraphGenerators.logNormalGraph(sc, numVertices = 10).mapEdges(e => e.attr.toDouble)
-    val sourceId: VertexId = 1 // The ultimate source
+    val sourceId: VertexId =   args(1).toLong// The ultimate source
     // Initialize the graph such that all vertices except the root have distance infinity.
     val initialGraph = graph.mapVertices((id, _) => if (id == sourceId) 0.0 else Double.PositiveInfinity)
     initialGraph.cache()

@@ -80,7 +80,7 @@ Output is the log file
 
 Input file must folow the format of the mock file "simple_graph_spark"
 
-`$SPARK_HOME/bin/spark-submit --class "SimpleSSSP"  --master local[4] target/scala-2.10/simplesssp_2.10-1.0.jar <inputfile>`
+`$SPARK_HOME/bin/spark-submit --class "src.main.scala.SimpleSSSP"  --master local[4] target/scala-2.10/simplesssp_2.10-1.0.jar <inputfile>`
 
 ## Contact
 

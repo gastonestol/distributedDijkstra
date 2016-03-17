@@ -37,10 +37,12 @@ public class FileFormatter extends ExampleBaseJob {
             if(row.length>0){
                 String nodeId = row[0];
                 if(row.length>1) {
-                    String[] neighbors = row[1].split(" ");
-                    for(String neighbor : neighbors){
+                    //String[] neighbors = row[1].split(" ");
+                    context.write(new Text(nodeId.trim()),new Text(row[1].trim()));
+
+                    /*for(String neighbor : neighbors){
                         context.write(new Text(nodeId),new Text(neighbor));
-                    }
+                    }*/
                 }
             }
 
@@ -53,8 +55,12 @@ public class FileFormatter extends ExampleBaseJob {
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
 
-            for(Text val : values)
-            context.write(key,val);
+            for(Text val : values){
+                String[] neighbors = val.toString().split(" ");
+                for(String neighbor : neighbors){
+                    context.write(key,new Text(neighbor.trim()));
+                }
+            }
         }
     }
 
@@ -114,7 +120,7 @@ public class FileFormatter extends ExampleBaseJob {
 
     }
 
-    @Override
+
     public int run(String[] strings) throws Exception {
         formatterJob(strings[0],strings[1]);
 

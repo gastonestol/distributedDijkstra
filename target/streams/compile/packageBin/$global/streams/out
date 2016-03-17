@@ -18,8 +18,6 @@
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Commons/Node$Color.class[0m
 [0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP$$anonfun$5.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/src/main/scala/SimpleSSSP$$anonfun$5.class[0m
-[0m[[0mdebug[0m] [0m	main/java/Pokec/SSSPJob$SearchMapperSSSP.class[0m
-[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Pokec/SSSPJob$SearchMapperSSSP.class[0m
 [0m[[0mdebug[0m] [0m	main/java/Pokec/SSSPJob.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Pokec/SSSPJob.class[0m
 [0m[[0mdebug[0m] [0m	src/main/scala/SimpleSSSP$.class[0m
@@ -32,10 +30,6 @@
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/src/main/scala/SimpleSSSP$$anonfun$3.class[0m
 [0m[[0mdebug[0m] [0m	main/java/Wikipedia/SSSPJob$1.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Wikipedia/SSSPJob$1.class[0m
-[0m[[0mdebug[0m] [0m	main/java/Pokec/SSSPJob$MoreIterations.class[0m
-[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Pokec/SSSPJob$MoreIterations.class[0m
-[0m[[0mdebug[0m] [0m	main/java/Pokec/SSSPJob$2.class[0m
-[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Pokec/SSSPJob$2.class[0m
 [0m[[0mdebug[0m] [0m	main/java/Wikipedia/SSSPJob.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Wikipedia/SSSPJob.class[0m
 [0m[[0mdebug[0m] [0m	main/java/Commons/SearchMapper.class[0m
@@ -62,8 +56,6 @@
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Wikipedia/SSSPJob$SearchReducerSSSP.class[0m
 [0m[[0mdebug[0m] [0m	main/java/Wikipedia/SSSPJob$MoreIterations.class[0m
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Wikipedia/SSSPJob$MoreIterations.class[0m
-[0m[[0mdebug[0m] [0m	main/java/Pokec/SSSPJob$SearchReducerSSSP.class[0m
-[0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/main/java/Pokec/SSSPJob$SearchReducerSSSP.class[0m
 [0m[[0mdebug[0m] [0m	src[0m
 [0m[[0mdebug[0m] [0m	  /Users/gestol/Software/distributedDijkstra/target/scala-2.10/classes/src[0m
 [0m[[0mdebug[0m] [0m	main/java/Commons/SearchReducer.class[0m
